@@ -1,0 +1,19 @@
+<div class="doubleWidth">
+			<div class="panel panel-default" id="tasks">
+	          	<div class="panel-heading">To do</div>
+	          	<div class="panel-body"  id="todo">
+					<ul>
+						<li ng-repeat="task in todos" ng-if="task.done==0"><a href="" ng-click="toggleDone(task.id)">{{task.todo}}</a><i class="fa fa-btn fa-times" ng-click="deleteTodo(task.id)"></i></li>
+					</ul>
+					<form ng-submit="postTodo()">
+					  <input type="text" ng-model="todoForm.todo" name="todo">
+					  <input type="submit" value="Add">
+					</form> 
+	          	</div>
+	          	<div class="panel-footer" id="done">
+	          		<ul>
+						<li ng-repeat="task in todos" ng-if="task.done==1"><a href="" ng-click="toggleDone(task.id)">{{task.todo}}</a><i class="fa fa-btn fa-times" ng-click="deleteTodo(task.id)"></i></li>
+					</ul>
+	          	</div>
+	        </div>
+</div>

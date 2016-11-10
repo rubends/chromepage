@@ -1,0 +1,18 @@
+<section id="settings" class="">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Settings</div>
+                    <div class="panel-body">
+                    		<div class="form-group" ng-repeat="setting in settings">
+								<label for="{{setting.widget}}">{{setting.widget}}</label>
+								<input type="checkbox" name="{{setting.widget}}" value="{{setting.show}}" ng-click="toggleShow(setting.id)" ng-checked="setting.visible==1">
+								<input type="text" ng-if="setting.account" name="account" ng-change="changeAccount(setting.id,settingAccount)" ng-model-options="{debounce:1000}" ng-model="settingAccount" ng-init="settingAccount=setting.account">
+							</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,20 @@
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+NelmioApiDocBundle:
+    resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
+    prefix:   /api/doc
+user:
+    resource: "@AppBundle/Controller/UserController.php"
+    type:     rest
+    prefix: /api
+task:
+    resource: "@AppBundle/Controller/TaskController.php"
+    type:     rest
+    prefix: /api
+setting:
+    resource: "@AppBundle/Controller/SettingController.php"
+    type:     rest
+    prefix: /api
+api_login_check:
+    path: /api/login_check

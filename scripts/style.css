@@ -1,0 +1,16 @@
+#dashboard .doubleWidth{
+	float: left;
+	width: 20%;
+}
+#dashboard .singleWidth{
+	float: left;
+	width: 10%;
+}
+
+
+#dashboard #tasks li{
+	cursor: pointer;
+}
+#dashboard #todo li:hover, #dashboard #done li{
+	text-decoration: line-through;
+}
