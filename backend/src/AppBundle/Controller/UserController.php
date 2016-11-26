@@ -54,6 +54,8 @@ class UserController extends FOSRestController
                 $user->setEmail($data['email']);
                 $user->setName($data['name']);
                 $user->setRole("ROLE_USER");
+                $user->setBackgroundColor("#ffffff");
+                $user->setWidgetColor("#ffffff");
 
                 $encoder = $this->container->get('security.password_encoder');
                 $encoded = $encoder->encodePassword($user, $data['password']);
@@ -78,7 +80,9 @@ class UserController extends FOSRestController
         $response = array(
             'token' => $token,
             'name'  => $user->getName(),
-            'email' => $user->getEmail()
+            'email' => $user->getEmail(),
+            'backgroundColor' => $user->getBackgroundColor(),
+            'widgetColor' => $user->getWidgetColor()
         );
 
         return new JsonResponse($response, $statusCode); // Return a 201 Created with the JWT.
@@ -128,5 +132,41 @@ class UserController extends FOSRestController
         $this->getDoctrine()->getManager()->flush();
 
         return new Response('User deleted', Response::HTTP_NO_CONTENT);
+    }
+
+    /**
+     * @ApiDoc()
+     *
+     * @param int $color
+     *
+     * @return User[]
+     */
+    public function patchUserBackgroundcolorAction($color)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $user->setBackgroundColor($color);
+
+        $em->flush();
+        return new JsonResponse(array('API' => "Changed backgroundcolor setting."));
+    }
+
+    /**
+     * @ApiDoc()
+     *
+     * @param string $color
+     *
+     * @return User[]
+     */
+    public function patchUserWidgetcolorAction($color)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        $user->setWidgetColor($color);
+
+        $em->flush();
+        return new JsonResponse(array('API' => "Changed widgetcolor setting."));
     }
 }

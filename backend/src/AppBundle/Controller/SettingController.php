@@ -120,4 +120,23 @@ class SettingController extends FOSRestController
         $em->flush();
         return new JsonResponse(array('API' => "Changed account setting."));
     }
+
+    /**
+     * @ApiDoc()
+     *
+     * @param int $id
+     * @param int $place
+     *
+     * @return Setting[]
+     */
+    public function patchSettingPlaceAction($id, $place)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $setting = $em->getRepository('AppBundle:Setting')->find($id);
+
+        $setting->setPlace($place);
+
+        $em->flush();
+        return new JsonResponse(array('API' => "Changed place setting."));
+    }
 }

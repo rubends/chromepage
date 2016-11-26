@@ -5,11 +5,30 @@
                 <div class="panel panel-default">
                     <div class="panel-heading">Settings</div>
                     <div class="panel-body">
-                    		<div class="form-group" ng-repeat="setting in settings">
-								<label for="{{setting.widget}}">{{setting.widget}}</label>
-								<input type="checkbox" name="{{setting.widget}}" value="{{setting.show}}" ng-click="toggleShow(setting.id)" ng-checked="setting.visible==1">
-								<input type="text" ng-if="setting.account" name="account" ng-change="changeAccount(setting.id,settingAccount)" ng-model-options="{debounce:1000}" ng-model="settingAccount" ng-init="settingAccount=setting.account">
-							</div>
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th>Widget</th>
+                                <th>Visible</th>
+                                <th>Order</th>
+                                <th>Setting</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="setting in settings">
+                                    <td><label for="{{setting.widget}}">{{setting.widget}}</label></td>
+                                    <td><input type="checkbox" name="{{setting.widget}}" value="{{setting.show}}" ng-click="toggleShow(setting.id)" ng-checked="setting.visible==1"></td>
+                                    <td><input type="number" value="{{setting.place}}" name="place" ng-change="changePlace(setting.id,settingPlace)" ng-model-options="{debounce:1000}" ng-model="settingPlace" ng-init="settingPlace=setting.place" max="{{settings.length}}" min="1"></td>
+                                    <td><input type="text" ng-if="setting.account" name="account" ng-change="changeAccount(setting.id,settingAccount)" ng-model-options="{debounce:1000}" ng-model="settingAccount" ng-init="settingAccount=setting.account"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="backgroundcolor">Background color</label></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><input type="color" name="backgroundcolor" value="{{user.backgroundColor}}" ng-change="changeBackgroundColor(newBackgroundColor)" ng-model="newBackgroundColor" ng-init="newBackgroundColor=user.backgroundColor"></td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

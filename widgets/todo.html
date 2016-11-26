@@ -5,9 +5,9 @@
 					<ul>
 						<li ng-repeat="task in todos" ng-if="task.done==0"><a href="" ng-click="toggleDone(task.id)">{{task.todo}}</a><i class="fa fa-btn fa-times" ng-click="deleteTodo(task.id)"></i></li>
 					</ul>
-					<form ng-submit="postTodo()">
-					  <input type="text" ng-model="todoForm.todo" name="todo">
-					  <input type="submit" value="Add">
+					<form>
+					  <input type="text" ng-model="todoForm.todo" id="addTodo" name="todo">
+					  <input type="submit" value="Add" ng-click="postTodo(todoForm.todo)">
 					</form> 
 	          	</div>
 	          	<div class="panel-footer" id="done">

@@ -36,6 +36,16 @@ class User implements UserInterface
     protected $role;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     */
+    protected $backgroundColor;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    protected $widgetColor;
+
+    /**
      * @Assert\Length(max=4096)
      */
     protected $plainPassword;
@@ -93,6 +103,26 @@ class User implements UserInterface
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    public function getBackgroundColor()
+    {
+        return $this->backgroundColor;
+    }
+
+    public function setBackgroundColor($backgroundColor)
+    {
+        $this->backgroundColor = $backgroundColor;
+    }
+
+    public function getWidgetColor()
+    {
+        return $this->widgetColor;
+    }
+
+    public function setWidgetColor($widgetColor)
+    {
+        $this->widgetColor = $widgetColor;
     }
 
     public function getPassword()

@@ -1,3 +1,23 @@
+/*BODY*/
+
+/*NAVBAR*/
+.navbar{
+	margin-bottom: 0 !important;
+}
+
+/* ERROR */
+#error h3{
+	margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+}
+
+/*DASHBOARD*/
+#dashboard{
+	padding-top: 20px;
+	min-height: 100vh;
+}
 #dashboard .doubleWidth{
 	float: left;
 	width: 20%;
@@ -14,3 +34,7 @@
 #dashboard #todo li:hover, #dashboard #done li{
 	text-decoration: line-through;
 }
+
+/*WIDGET*/
+
+/*FOOTER*/
