@@ -168,4 +168,19 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
             });
         }
 
+        $scope.changeWeather = function($id, $weather){
+            var sUrl = "http://chromepage.local/backend/web/api/settings/"+$id+"/accounts/"+$weather;
+            var oConfig = {
+                url: sUrl,
+                method: "PATCH",
+                params: {callback: "JSON_CALLBACK"},
+                headers: {Authorization: 'Bearer ' + $scope.token}
+            };
+            $http(oConfig).success(function(data){
+                getWeather($weather);
+            }).error(function(data){
+                 console.log("error");
+            });
+        }
+
 	}]);

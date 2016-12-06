@@ -2,7 +2,12 @@
 	<div class="panel panel-default widget" id="weather">
 	          	<div class="panel-heading">Weather</div>
 	          	<div class="panel-body">
-	          		<h2>{{weather.name}}</h2>
+	          		<h2 ng-hide="editingWeather" ng-click="editingWeather = true">{{weather.name}}</h2>
+
+	          		<form ng-show="editingWeather" ng-submit="editingWeather = false">
+	          			<h2><input type="text" class="form-control" value="{{weather.name}}" name="weatherName" ng-change="changeWeather(weatherId,weatherName)" ng-model-options="{debounce:1000}" ng-model="weatherName" ng-init="weatherName=weather.name"></h2>
+	          		</form>
+
 	          		<p>{{weather.weather[0].description}}</p>
 	          		<p>max: {{weather.main.temp_max}}°C</p>
 	          		<p>min: {{weather.main.temp_min}}°C</p>

@@ -10,8 +10,6 @@
                               <tr>
                                 <th>Widget</th>
                                 <th>Visible</th>
-                                <th>Order</th>
-                                <th>Setting</th>
                               </tr>
                             </thead>
                             <tbody>
@@ -19,7 +17,6 @@
                                     <td><label for="{{setting.widget}}">{{setting.widget}}</label></td>
                                     <td><input type="checkbox" name="{{setting.widget}}" value="{{setting.show}}" ng-click="toggleShow(setting.id)" ng-checked="setting.visible==1"></td>
                                     <td><input type="number" value="{{setting.place}}" name="place" ng-change="changePlace(setting.id,settingPlace)" ng-model-options="{debounce:1000}" ng-model="settingPlace" ng-init="settingPlace=setting.place" max="{{settings.length}}" min="1"></td>
-                                    <td><input type="text" ng-if="setting.account" name="account" ng-change="changeAccount(setting.id,settingAccount)" ng-model-options="{debounce:1000}" ng-model="settingAccount" ng-init="settingAccount=setting.account"></td>
                                 </tr>
                                 <tr>
                                     <td><label for="backgroundcolor">Background color</label></td>
