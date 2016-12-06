@@ -1,10 +1,7 @@
-<section id="dashboard" style="background-color: {{user.backgroundColor}};">
+<section id="dashboard">
 	<div class="container-fluid" id="widgets">
-		<div class="todoWidget">
-			<todo-directive ng-if="showTodo"></todo-directive>
-		</div>
-		<div class="weatherWidget">
-			<weather-directive ng-if="showWeather"></weather-directive>
-		</div>
+		<div ng-repeat="widget in widgetTemplates">
+	        <div ng-include="widget" ng-controller="{{widget}}Cntrl.js"></div>
+	    </div>
     </div>
 </section>

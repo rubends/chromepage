@@ -24,7 +24,7 @@ app.controller("loginController", ['$scope', '$http', '$cookies', '$location', f
                     $scope.user.loggedIn = true;
                     $scope.user.backgroundColor = data.backgroundColor;
                     $scope.user.widgetColor = data.widgetColor;
-                    $location.path('/dashboard');
+                    $location.path('/');
                 }
             }).error(function(data){
                 console.log(data);

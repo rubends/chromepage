@@ -1,23 +1,6 @@
-app.controller("settingsController", ['$scope', '$http', '$cookies', '$location', function($scope, $http, $cookies, $location){
-        $scope.settings = [];
+app.controller("settingsController", ['$scope', '$http', '$cookies', '$location', 'settings', function($scope, $http, $cookies, $location, settings){
+        $scope.settings = settings.data;
         $scope.token = $cookies.get('token');
-
-        $scope.getSettings = function(){
-            var sUrl = "http://chromepage.local/backend/web/api/settings";
-            var oConfig = {
-                url: sUrl,
-                method: "GET",
-                params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
-            };
-            $http(oConfig).success(function(data){
-                console.log(data);
-                $scope.settings = data;
-            }).error(function(data){
-                 console.log(data);
-            });
-        }
-        $scope.getSettings();
 
         $scope.changeAccount = function($id, $account){
             var sUrl = "http://chromepage.local/backend/web/api/settings/"+$id+"/accounts/"+$account;

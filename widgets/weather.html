@@ -1,5 +1,5 @@
-<div class="singleWidth">
-			<div class="panel panel-default" id="weather">
+<div class="col-md-1 move" id="{{weatherId}}" ng-if="showWeather" data-place="{{weatherPlace}}">
+	<div class="panel panel-default widget" id="weather">
 	          	<div class="panel-heading">Weather</div>
 	          	<div class="panel-body">
 	          		<h2>{{weather.name}}</h2>

@@ -7,7 +7,12 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
     	$routeProvider
     	.when("/", {
 			templateUrl : "templates/dashboard.html",
-			controller : "dashboardController"
+			controller : "dashboardController",
+            resolve: {
+                settings: ['settingsService', function(settingsService){
+                    return settingsService.get();
+                }]
+            }
 		})
 		.when("/register", {
 			templateUrl : "templates/register.html",
@@ -19,7 +24,12 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
 		})
 		.when("/settings", {
 			templateUrl: "templates/settings.html",
-			controller : "settingsController"
+			controller : "settingsController",
+            resolve: {
+                settings: ['settingsService', function(settingsService){
+                    return settingsService.get();
+                }]
+            }
 		})
         .when("/logout", {
             templateUrl: "templates/dashboard.html",
@@ -27,7 +37,12 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
         })
 		.otherwise({
 	        templateUrl : "templates/dashboard.html",
-	        controller : "dashboardController"
+	        controller : "dashboardController",
+            resolve: {
+                settings: ['settingsService', function(settingsService){
+                    return settingsService.get();
+                }]
+            }
 	    });
 	});
 
@@ -53,8 +68,9 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
                     $scope.user.name = data.name;
                     $scope.user.email = data.email;
                     $scope.user.loggedIn = true;
-                    $scope.user.backgroundColor = data.backgroundColor;
-                    $scope.user.widgetColor = data.widgetColor;
+                    $scope.user.backgroundColor = data.background_color;
+                    console.log(data);
+                    $scope.user.widgetColor = data.widget_color;
                 }).error(function(data){
                     $scope.error.exist = true;
                     if (data.code == "401") 
@@ -65,29 +81,16 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
                 });
             }
             $scope.getUser();
-            console.log("appcontroller get user");
             
         }
         else
         {
-            console.log("no cookie");
             $scope.error.exist = true;
             $location.path('/login');
             $scope.error.reason = "You have to be loggedin";
         }
 
     }]);
-
-    app.directive("todoDirective", function() {
-        return {
-            templateUrl : "widgets/todo.html"
-        };
-    });
-    app.directive("weatherDirective", function() {
-        return {
-            templateUrl : "widgets/weather.html"
-        };
-    });
     
 })();
 

@@ -1,0 +1,41 @@
+/*BODY*/
+@liColor: #b50606;
+
+/*NAVBAR*/
+.navbar{
+	margin-bottom: 0 !important;
+}
+
+/* ERROR */
+#error h3{
+	margin-top: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 4px;
+}
+
+/*DASHBOARD*/
+#dashboard{
+	padding-top: 20px;
+	min-height: 100vh;
+
+	[class*="col-"]{
+		padding-right: 5px !important;
+		padding-left: 5px !important;
+	}
+
+	#tasks{
+		li{
+			cursor: pointer;
+			color: @liColor;
+		}
+	}
+}
+
+#dashboard #todo li:hover, #dashboard #done li{
+	text-decoration: line-through;
+}
+
+/*WIDGET*/
+
+/*FOOTER*/

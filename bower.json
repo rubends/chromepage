@@ -1,0 +1,31 @@
+{
+  "name": "Chromepage",
+  "homepage": "https://github.com/rubends/chromepage",
+  "authors": [
+    "rubends <rubendeswaef@gmail.com>"
+  ],
+  "description": "Personalised webdashboard",
+  "main": "app.js",
+  "keywords": [
+    "personalised",
+    "webdashboard"
+  ],
+  "license": "none",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-cookies": "^1.5.9",
+    "jquery-ui": "^1.12.1",
+    "angular-route": "^1.5.9",
+    "angular": "^1.5.9",
+    "font-awesome": "^4.7.0",
+    "bootstrap": "^3.3.7",
+    "jquery": "^3.1.1"
+  }
+}

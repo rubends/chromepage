@@ -1,0 +1,1 @@
+.navbar{margin-bottom:0 !important}#error h3{margin-top:10px;padding-top:10px;padding-bottom:10px;border-radius:4px}#dashboard{padding-top:20px;min-height:100vh}#dashboard [class*="col-"]{padding-right:5px !important;padding-left:5px !important}#dashboard #tasks li{cursor:pointer;color:#b50606}#dashboard #todo li:hover,#dashboard #done li{text-decoration:line-through}
