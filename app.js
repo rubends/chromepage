@@ -51,7 +51,6 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
         $scope.error = {exist: false};
 
         $scope.$watch(function() { return $cookies.get('token'); }, function() {
-            console.log("watched cookie");
             if ($cookies.get('token')) {
                 $scope.token = $cookies.get('token');
                 getUserService.getUser().success(function(data){

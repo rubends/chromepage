@@ -30,6 +30,7 @@
                         </select>
                     </div>
                     <div class="settings" id="colorSettings" ng-show="settingsView === 'colors'">
+                        <p>Create your own colorscheme.</p>
                         <table class="table">
                             <thead>
                               <tr>
@@ -56,6 +57,13 @@
                                 </tr>
                             </tbody>
                         </table>
+                        <p>Or choose a theme.</p>
+                        <select class="form-control" ng-change="chooseTheme(themeName)" ng-model="themeName">
+                            <option disabled selected value=""> Choose a theme </option>
+                            <option value="dark">Dark</option>
+                            <option value="light">Light</option>
+                            <option value="candy">Candy</option>
+                        </select>
                     </div>
                 </div>
             </div>

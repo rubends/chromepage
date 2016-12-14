@@ -1,5 +1,6 @@
-<section id="dashboard">
+<section id="dashboard" ng-style="dashboardStyle">
 	<div class="container-fluid" id="widgets">
+		<h2 ng-show="noWidgetSet" class="text-center">There are no widgets set. Go to settings to add widgets.</h2>
 		<div ng-repeat="widget in widgetTemplates">
 	        <div ng-include="widget"></div>
 	    </div>

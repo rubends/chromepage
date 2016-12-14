@@ -52,4 +52,39 @@ app.controller("settingsController", ['$scope', '$http', '$cookies', '$location'
             });
         }
 
+        $scope.chooseTheme = function($theme){
+            switch($theme) {
+                case "dark":
+                    $scope.changeColor('backgroundcolor', "#2b2b2b");
+                    $scope.changeColor('widgetcolor', "#989898");
+                    $scope.changeColor('headercolor', "#c10000");
+                    $scope.changeColor('fontcolor', "#ffffff");
+                    $scope.newBackgroundColor = "#2b2b2b";
+                    $scope.newWidgetColor = "#989898";
+                    $scope.newHeaderColor = "#c10000";
+                    $scope.newFontColor = "#ffffff";
+                    break;
+                case "light":
+                    $scope.changeColor('backgroundcolor', "#ffffff");
+                    $scope.changeColor('widgetcolor', "#e0e0e0");
+                    $scope.changeColor('headercolor', "#757575");
+                    $scope.changeColor('fontcolor', "#2b2b2b");
+                    $scope.newBackgroundColor = "#ffffff";
+                    $scope.newWidgetColor = "#e0e0e0";
+                    $scope.newHeaderColor = "#757575";
+                    $scope.newFontColor = "#2b2b2b";
+                    break;
+                case "candy":
+                    $scope.changeColor('backgroundcolor', "#042526");
+                    $scope.changeColor('widgetcolor', "#55B3C2");
+                    $scope.changeColor('headercolor', "#D94723");
+                    $scope.changeColor('fontcolor', "#F5F3DA");
+                    $scope.newBackgroundColor = "#042526";
+                    $scope.newWidgetColor = "#55B3C2";
+                    $scope.newHeaderColor = "#D94723";
+                    $scope.newFontColor = "#F5F3DA";
+                    break;
+            }
+        }
+
     }]);

@@ -12,6 +12,10 @@
 	a:hover{
 		background-color: #4c4c4c !important;
 	}
+
+	.capitalize{
+		text-transform: capitalize;
+	}
 }
 
 /* ERROR */
@@ -38,6 +42,9 @@
 	   hyphens:auto;
 	   word-wrap:break-word;
 	}
+	.col-md-1 h2{
+		font-size: 150% !important;
+	}
 	.panel{
 		border: none;
 	}
@@ -52,6 +59,8 @@
 }
 #dashboard{
 	.panel-heading{
+		border: none;
+
 		h3{
 			font-weight: bold;
 			font-size: 20px;
@@ -83,15 +92,14 @@
 				display: block;
 			}
 		}
-		form{
-			margin-left: 40px;
-		}
 
 	}
 
 	#weather{
 		h2{
 			font-size: 200%;
+			margin-top: 0;
+			display: inline-block;
 		}
 		input[type="text"] {
 			    border: none;
@@ -100,6 +108,12 @@
 			    border-radius: 0px;
 			    font-size: 85%;
 			    padding: 0;
+		}
+	}
+
+	#catGif{
+		img{
+			width: 100%;
 		}
 	}
 }

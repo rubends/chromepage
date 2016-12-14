@@ -1,0 +1,13 @@
+<div class="col-md-{{catWidget.size}} move" id="{{catWidget.id}}" data-place="{{catWidget.place}}">
+	<div class="panel panel-default widget" id="catGif">
+	          	<div class="panel-heading" ng-style="widgetHeader">
+	          		<h3>Random cat gif</h3>
+	          		<div class="resize">
+	          			<i class="fa fa-window-maximize" aria-hidden="true" ng-click="changeSize(catWidget.id, catWidget.size); catWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
+	          		</div>
+	          	</div>
+	          	<div class="panel-body" ng-style="widgetBody">
+	          		<img src="http://thecatapi.com/api/images/get?format=src&type=gif">
+	          	</div>
+	        </div>
+</div>

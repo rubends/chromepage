@@ -14,17 +14,15 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
             $scope.user.loggedIn = true;
         }
 
-        $("#dashboard").css("background-color", $scope.user.background_color);
-
+        $scope.dashboardStyle = {'background-color': $scope.user.background_color, 'color': $scope.user.font_color};
         $scope.widgetHeader = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
-        $scope.widgetBody = {'background-color': $scope.user.widget_color, 'color': $scope.user.font_color}
-        console.log("dashboardController");
-        console.log($scope.user);
+        $scope.widgetBody = {'background-color': $scope.user.widget_color, 'color': $scope.user.font_color};
+
         for(setting in $scope.settings){
             if ($scope.settings[setting].visible==1) 
             {
                 $scope.widgetTemplates[$scope.settings[setting].place] = "widgets/" + $scope.settings[setting].widget + ".html";
-                
+
                 if ($scope.settings[setting].widget=="todo") 
                 {
                     getTodos();
@@ -40,8 +38,17 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                     getJoke();
                     $scope.jokeWidget = $scope.settings[setting];
                 };
+                if ($scope.settings[setting].widget=="catGifs") 
+                {
+                    getJoke();
+                    $scope.catWidget = $scope.settings[setting];
+                };
+
             };
         };
+        if($scope.widgetTemplates.length == 0){
+            $scope.noWidgetSet = true;
+        }
 
         $('#widgets').sortable({
             helper: 'clone',

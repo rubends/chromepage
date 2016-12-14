@@ -46,12 +46,14 @@ class SettingController extends FOSRestController
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $userId = $user->getId();
 
-        $widgets = ['todo', 'weather', 'joke'];
+        $place = -1; //every widget gets the next place
+        $widgets = ['todo', 'weather', 'joke', 'catGifs'];
         foreach ($widgets as $widget) {
             $setting = new Setting();
             $setting->setWidget($widget);
-            $setting->setVisible(1);
-            $setting->setPlace(1);
+            $setting->setVisible(0);
+            $place++;
+            $setting->setPlace($place);
             $setting->setSize(2);
             $setting->setUserId($userId);
             if ($widget == 'weather') {
