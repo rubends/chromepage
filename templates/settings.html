@@ -2,27 +2,57 @@
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default">
-                    <div class="panel-heading">Settings</div>
-                    <div class="panel-body">
+                <div ng-init="settingsView = 'widgets'">
+                    <ul class="nav nav-tabs">
+                      <li role="presentation" class="active"><a ng-click="settingsView = 'widgets'" data-toggle="pill">Widgets</a></li>
+                      <li role="presentation"><a ng-click="settingsView = 'colors'" data-toggle="pill">Colors</a></li>
+                    </ul>
+                    <div class="settings" id="widgetSettings" ng-show="settingsView === 'widgets'">
                         <table class="table">
                             <thead>
                               <tr>
                                 <th>Widget</th>
-                                <th>Visible</th>
+                                <th>Delete</th>
                               </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="setting in settings">
+                                <tr ng-repeat="setting in settings" ng-if="setting.visible==1">
                                     <td><label for="{{setting.widget}}">{{setting.widget}}</label></td>
-                                    <td><input type="checkbox" name="{{setting.widget}}" value="{{setting.show}}" ng-click="toggleShow(setting.id)" ng-checked="setting.visible==1"></td>
-                                    <td><input type="number" value="{{setting.place}}" name="place" ng-change="changePlace(setting.id,settingPlace)" ng-model-options="{debounce:1000}" ng-model="settingPlace" ng-init="settingPlace=setting.place" max="{{settings.length}}" min="1"></td>
+                                    <!-- <input type="checkbox" name="{{setting.widget}}" value="{{setting.show}}" ng-click="toggleShow(setting.id)" ng-checked="setting.visible==1"> -->
+                                    <td><i class="fa fa-btn fa-times btn btn-default" ng-click="toggleShow(setting.id)"></i></td>
                                 </tr>
+                            </tbody>
+                        </table>
+                        <h3>Add widget</h3>
+                        <select class="form-control" ng-change="toggleShow(settingId)" ng-model="settingId">
+                            <option disabled selected value=""> Choose a widget </option>
+                            <option ng-repeat="setting in settings" ng-if="setting.visible==0" value="{{setting.id}}">{{setting.widget}}</option>
+                        </select>
+                    </div>
+                    <div class="settings" id="colorSettings" ng-show="settingsView === 'colors'">
+                        <table class="table">
+                            <thead>
+                              <tr>
+                                <th>Object</th>
+                                <th>Color</th>
+                              </tr>
+                            </thead>
+                            <tbody>
                                 <tr>
                                     <td><label for="backgroundcolor">Background color</label></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td><input type="color" name="backgroundcolor" value="{{user.backgroundColor}}" ng-change="changeBackgroundColor(newBackgroundColor)" ng-model="newBackgroundColor" ng-init="newBackgroundColor=user.backgroundColor"></td>
+                                    <td><input type="color" name="backgroundcolor" value="{{user.background_color}}" ng-change="changeColor('backgroundcolor', newBackgroundColor)" ng-model="newBackgroundColor" ng-init="newBackgroundColor=user.background_color"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="widgetcolor">Widget color</label></td>
+                                    <td><input type="color" name="widgetcolor" value="{{user.widget_color}}" ng-change="changeColor('widgetcolor', newWidgetColor)" ng-model="newWidgetColor" ng-init="newWidgetColor=user.widget_color"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="headercolor">Header color</label></td>
+                                    <td><input type="color" name="headercolor" value="{{user.header_color}}" ng-change="changeColor('headercolor', newHeaderColor)" ng-model="newHeaderColor" ng-init="newHeaderColor=user.header_color"></td>
+                                </tr>
+                                <tr>
+                                    <td><label for="fontcolor">Font color</label></td>
+                                    <td><input type="color" name="fontcolor" value="{{user.font_color}}" ng-change="changeColor('fontcolor', newFontColor)" ng-model="newFontColor" ng-init="newFontColor=user.font_color"></td>
                                 </tr>
                             </tbody>
                         </table>

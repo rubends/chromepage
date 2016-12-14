@@ -1,9 +1,17 @@
 /*BODY*/
-@liColor: #b50606;
 
 /*NAVBAR*/
-.navbar{
-	margin-bottom: 0 !important;
+.navbar-default{
+	background-color: #2b2b2b !important;
+	border: none !important;
+	color: white;
+
+	a{
+		color: white !important;
+	}
+	a:hover{
+		background-color: #4c4c4c !important;
+	}
 }
 
 /* ERROR */
@@ -16,26 +24,90 @@
 
 /*DASHBOARD*/
 #dashboard{
-	padding-top: 20px;
 	min-height: 100vh;
+	top: -20px;
+    position: relative;
+    padding-top: 20px;
 
 	[class*="col-"]{
 		padding-right: 5px !important;
 		padding-left: 5px !important;
+		-moz-hyphens:auto;
+	   -ms-hyphens:auto;
+	   -webkit-hyphens:auto;
+	   hyphens:auto;
+	   word-wrap:break-word;
+	}
+	.panel{
+		border: none;
+	}
+}
+
+/*WIDGET*/
+#dashboard #todo li:hover, #dashboard #done li span{
+	text-decoration: line-through;
+}
+#dashboard #done li span:hover{
+	text-decoration: none;
+}
+#dashboard{
+	.panel-heading{
+		h3{
+			font-weight: bold;
+			font-size: 20px;
+			margin-top: 0px;
+    		margin-bottom: 0px;
+    		display:inline-block;
+		}
+		.resize{
+			float: right;
+
+			.fa{
+				cursor: pointer;
+			}
+		}
 	}
 
 	#tasks{
 		li{
 			cursor: pointer;
-			color: @liColor;
+			list-style-type: circle;
+
+			.deleteTodo{
+				float:right;
+				display: none;
+			}
+		}
+		li:hover{
+			.deleteTodo{
+				display: block;
+			}
+		}
+		form{
+			margin-left: 40px;
+		}
+
+	}
+
+	#weather{
+		h2{
+			font-size: 200%;
+		}
+		input[type="text"] {
+			    border: none;
+			    box-shadow: none;
+			    border-bottom: 1px solid #2b2b2b;
+			    border-radius: 0px;
+			    font-size: 85%;
+			    padding: 0;
 		}
 	}
 }
 
-#dashboard #todo li:hover, #dashboard #done li{
-	text-decoration: line-through;
+/*SETTINGS*/
+input[type="color"] {
+	border: none;
+	padding: 0px;
 }
-
-/*WIDGET*/
 
 /*FOOTER*/

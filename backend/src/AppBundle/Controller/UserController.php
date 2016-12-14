@@ -56,6 +56,8 @@ class UserController extends FOSRestController
                 $user->setRole("ROLE_USER");
                 $user->setBackgroundColor("#ffffff");
                 $user->setWidgetColor("#ffffff");
+                $user->setHeaderColor("#f5f5f5");
+                $user->setFontColor("#333333");
 
                 $encoder = $this->container->get('security.password_encoder');
                 $encoded = $encoder->encodePassword($user, $data['password']);
@@ -81,8 +83,10 @@ class UserController extends FOSRestController
             'token' => $token,
             'name'  => $user->getName(),
             'email' => $user->getEmail(),
-            'backgroundColor' => $user->getBackgroundColor(),
-            'widgetColor' => $user->getWidgetColor()
+            'background_color' => $user->getBackgroundColor(),
+            'widget_color' => $user->getWidgetColor(),
+            'header_color' => $user->getHeaderColor(),
+            'font_color' => $user->getFontColor()
         );
 
         return new JsonResponse($response, $statusCode); // Return a 201 Created with the JWT.
@@ -137,36 +141,31 @@ class UserController extends FOSRestController
     /**
      * @ApiDoc()
      *
+     * @param string $option
      * @param int $color
      *
      * @return User[]
      */
-    public function patchUserBackgroundcolorAction($color)
+    public function patchUserColorAction($option, $color)
     {
         $em = $this->getDoctrine()->getManager();
         $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        $user->setBackgroundColor($color);
+        if ($option == "backgroundcolor") {
+            $user->setBackgroundColor($color);
+        }
+        if ($option == "widgetcolor") {
+            $user->setWidgetColor($color);
+        }
+        if ($option == "headercolor") {
+            $user->setHeaderColor($color);
+        }
+        if ($option == "fontcolor") {
+            $user->setFontColor($color);
+        }
+        
 
         $em->flush();
-        return new JsonResponse(array('API' => "Changed backgroundcolor setting."));
-    }
-
-    /**
-     * @ApiDoc()
-     *
-     * @param string $color
-     *
-     * @return User[]
-     */
-    public function patchUserWidgetcolorAction($color)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-
-        $user->setWidgetColor($color);
-
-        $em->flush();
-        return new JsonResponse(array('API' => "Changed widgetcolor setting."));
+        return new JsonResponse(array('API' => "Changed color setting."));
     }
 }

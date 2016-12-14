@@ -46,6 +46,16 @@ class User implements UserInterface
     protected $widgetColor;
 
     /**
+     * @ORM\Column(type="string", length=50)
+     */
+    protected $headerColor;
+
+    /**
+     * @ORM\Column(type="string", length=50)
+     */
+    protected $fontColor;
+
+    /**
      * @Assert\Length(max=4096)
      */
     protected $plainPassword;
@@ -123,6 +133,25 @@ class User implements UserInterface
     public function setWidgetColor($widgetColor)
     {
         $this->widgetColor = $widgetColor;
+    }
+
+    public function getHeaderColor()
+    {
+        return $this->headerColor;
+    }
+
+    public function setHeaderColor($headerColor)
+    {
+        $this->headerColor = $headerColor;
+    }
+    public function getFontColor()
+    {
+        return $this->fontColor;
+    }
+
+    public function setFontColor($fontColor)
+    {
+        $this->fontColor = $fontColor;
     }
 
     public function getPassword()

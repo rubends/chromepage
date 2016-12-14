@@ -1,8 +1,7 @@
-app.factory('settingsService', ['$http', '$cookies', function($http, $cookies) {
+app.factory('getUserService', ['$http', '$cookies', function($http, $cookies) {
 	return {
-		get: function(){
-            if ($cookies.get('token')) {
-    			var sUrl = "http://chromepage.local/backend/web/api/settings";
+		getUser: function(){
+                var sUrl = "http://chromepage.local/backend/web/api/user";
                 var oConfig = {
                     url: sUrl,
                     method: "GET",
@@ -10,10 +9,6 @@ app.factory('settingsService', ['$http', '$cookies', function($http, $cookies) {
                     headers: {Authorization: 'Bearer ' + $cookies.get('token')}
                 };
                 return $http(oConfig);
-            }
-            else{
-                return "error";
-            }
-		}
+        }
 	};
 }]);

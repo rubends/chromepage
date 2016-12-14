@@ -44,6 +44,14 @@ class Setting
     protected $place;
 
     /**
+     * 
+     * @ORM\Column(type="integer")
+     *
+     * @var int
+     */
+    protected $size;
+
+    /**
      * @ORM\Column(type="string")
      *
      * @var string
@@ -116,6 +124,23 @@ class Setting
     public function setPlace($place)
     {
         $this->place = $place;
+    }
+
+    /**
+     * @return int
+     *
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
+     * @param int $place
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
     }
 
     /**

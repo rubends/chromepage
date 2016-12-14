@@ -1,7 +1,12 @@
-<div class="col-md-2 move" id="{{jokeId}}" ng-if="showJoke" data-place="{{jokePlace}}">
+<div class="col-md-{{jokeWidget.size}} move" id="{{jokeWidget.id}}" data-place="{{jokeWidget.place}}">
 	<div class="panel panel-default widget" id="joke">
-	          	<div class="panel-heading">Joke</div>
-	          	<div class="panel-body">
+	          	<div class="panel-heading" ng-style="widgetHeader">
+	          		<h3>Joke</h3>
+	          		<div class="resize">
+	          			<i class="fa fa-window-maximize" aria-hidden="true" ng-click="changeSize(jokeWidget.id, jokeWidget.size); jokeWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
+	          		</div>
+	          	</div>
+	          	<div class="panel-body" ng-style="widgetBody">
 	          		<p>{{joke}}</p>
 	          	</div>
 	        </div>

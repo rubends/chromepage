@@ -1,20 +1,12 @@
 app.controller("settingsController", ['$scope', '$http', '$cookies', '$location', 'settings', function($scope, $http, $cookies, $location, settings){
-        $scope.settings = settings.data;
-        $scope.token = $cookies.get('token');
-
-        $scope.changeAccount = function($id, $account){
-            var sUrl = "http://chromepage.local/backend/web/api/settings/"+$id+"/accounts/"+$account;
-            var oConfig = {
-                url: sUrl,
-                method: "PATCH",
-                params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
-            };
-            $http(oConfig).success(function(data){
-                console.log(data);
-            }).error(function(data){
-                 console.log("error");
-            });
+        
+        if (settings == "error") {
+            $location.path('/login');
+            $scope.error.reason = "You have to be loggedin";
+            $scope.error.exist = true;
+        }
+        else {
+            $scope.settings = settings.data;
         }
 
         $scope.toggleShow = function($id){
@@ -26,14 +18,16 @@ app.controller("settingsController", ['$scope', '$http', '$cookies', '$location'
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
-                console.log(data);
-            }).error(function(data){
-                 console.log("error");
+                for (var i = 0; i < $scope.settings.length; i++) {
+                    if ($scope.settings[i].id == $id) {
+                        $scope.settings[i].visible = data;
+                    };
+                };
             });
         }
 
-        $scope.changePlace = function($id, $place){
-            var sUrl = "http://chromepage.local/backend/web/api/settings/"+$id+"/places/"+$place;
+        $scope.changeColor = function($option, $color){
+            var sUrl = "http://chromepage.local/backend/web/api/users/"+ $option + "/colors/" +encodeURIComponent($color);
             var oConfig = {
                 url: sUrl,
                 method: "PATCH",
@@ -41,22 +35,18 @@ app.controller("settingsController", ['$scope', '$http', '$cookies', '$location'
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
-                console.log(data);
-            }).error(function(data){
-                 console.log("error");
-            });
-        }
-
-        $scope.changeBackgroundColor = function($color){
-            var sUrl = "http://chromepage.local/backend/web/api/users/"+encodeURIComponent($color)+"/backgroundcolor";
-            var oConfig = {
-                url: sUrl,
-                method: "PATCH",
-                params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
-            };
-            $http(oConfig).success(function(data){
-                $scope.user.backgroundColor = $color;
+                if ($option == "backgroundcolor") {
+                    $scope.user.background_color = $color;
+                }
+                if ($option == "widgetcolor") {
+                    $scope.user.widget_color = $color;
+                }
+                if ($option == "headercolor") {
+                    $scope.user.header_color = $color;
+                }
+                if ($option == "fontcolor") {
+                    $scope.user.font_color = $color;
+                }
             }).error(function(data){
                  console.log(data);
             });

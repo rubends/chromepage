@@ -1,18 +1,31 @@
-<div class="col-md-3 move" id="{{todoId}}" ng-if="showTodo" data-place="{{todoPlace}}">
+<div class="col-md-{{todoWidget.size}} move" id="{{todoWidget.id}}" data-place="{{todoWidget.place}}">
 	<div class="panel panel-default" id="tasks">
-	          	<div class="panel-heading">To do</div>
-	          	<div class="panel-body"  id="todo">
+	          	<div class="panel-heading" ng-style="widgetHeader">
+	          		<h3>To do</h3>
+	          		<div class="resize">
+	          			<i class="fa fa-window-maximize" aria-hidden="true" ng-click="changeSize(todoWidget.id, todoWidget.size); todoWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
+	          		</div>
+	          	</div>
+	          	<div class="panel-body" id="todo" ng-style="widgetBody">
 					<ul>
-						<li ng-repeat="task in todos" ng-if="task.done==0"><a href="" ng-click="toggleDone(task.id)">{{task.todo}}</a><i class="fa fa-btn fa-times" ng-click="deleteTodo(task.id)"></i></li>
+						<li ng-repeat="task in todos" ng-if="task.done==0">
+							<span href="" ng-click="toggleDone(task.id)">{{task.todo}}</span>
+							<i class="fa fa-btn fa-times deleteTodo" ng-click="deleteTodo(task.id)"></i></li>
 					</ul>
 					<form>
-					  <input type="text" ng-model="todoForm.todo" id="addTodo" name="todo">
-					  <input type="submit" value="Add" ng-click="postTodo(todoForm.todo)">
+					  <div class="input-group">
+					      <input type="text" ng-model="todoForm.todo" id="addTodo" name="todo" class="form-control" placeholder="Add a todo">
+					      <span class="input-group-btn">
+					        <button class="btn btn-secondary" type="button" ng-click="postTodo(todoForm.todo)">Add</button>
+					      </span>
+				    </div>
 					</form> 
 	          	</div>
 	          	<div class="panel-footer" id="done">
 	          		<ul>
-						<li ng-repeat="task in todos" ng-if="task.done==1"><a href="" ng-click="toggleDone(task.id)">{{task.todo}}</a><i class="fa fa-btn fa-times" ng-click="deleteTodo(task.id)"></i></li>
+						<li ng-repeat="task in todos" ng-if="task.done==1">
+							<span href="" ng-click="toggleDone(task.id)">{{task.todo}}</span>
+							<i class="fa fa-btn fa-times deleteTodo" ng-click="deleteTodo(task.id)"></i></li>
 					</ul>
 	          	</div>
 	        </div>

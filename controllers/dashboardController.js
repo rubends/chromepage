@@ -1,77 +1,96 @@
-app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location', 'settings', function($scope, $http, $cookies, $location, settings){
+app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location', 'settings', 'user', function($scope, $http, $cookies, $location, settings, user){
 		$scope.todos = [];
         $scope.weather = [];
         $scope.widgetTemplates = [];
-        $scope.settings = settings.data;
-        console.log(settings.data);
-        $scope.token = $cookies.get('token');
-        
-        $(document).ready(function() {
-            $("#dashboard").css("background-color", $scope.user.backgroundColor);
 
-            for(setting in $scope.settings){
-                if ($scope.settings[setting].visible==1) 
+        if (settings == "error") {
+            $location.path('/login');
+            $scope.error.reason = "You have to be loggedin";
+            $scope.error.exist = true;
+        }
+        else {
+            $scope.settings = settings.data;
+            $scope.user = user.data;
+            $scope.user.loggedIn = true;
+        }
+
+        $("#dashboard").css("background-color", $scope.user.background_color);
+
+        $scope.widgetHeader = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
+        $scope.widgetBody = {'background-color': $scope.user.widget_color, 'color': $scope.user.font_color}
+        console.log("dashboardController");
+        console.log($scope.user);
+        for(setting in $scope.settings){
+            if ($scope.settings[setting].visible==1) 
+            {
+                $scope.widgetTemplates[$scope.settings[setting].place] = "widgets/" + $scope.settings[setting].widget + ".html";
+                
+                if ($scope.settings[setting].widget=="todo") 
                 {
-                    $scope.widgetTemplates[$scope.settings[setting].place] = "widgets/" + $scope.settings[setting].widget + ".html";
-                    
-                    if ($scope.settings[setting].widget=="todo") 
-                    {
-                        getTodos();
-                        $scope.showTodo = true;
-                        $scope.todoId = $scope.settings[setting].id;
-                        $scope.todoPlace = $scope.settings[setting].place;
-                    };
-                    if ($scope.settings[setting].widget=="weather") 
-                    {
-                        getWeather($scope.settings[setting].account);
-                        $scope.showWeather = true;
-                        $scope.weatherId = $scope.settings[setting].id;
-                        $scope.weatherPlace = $scope.settings[setting].place;
-                    };
-                    if ($scope.settings[setting].widget=="joke") 
-                    {
-                        getJoke();
-                        $scope.showJoke = true;
-                        $scope.jokeId = $scope.settings[setting].id;
-                        $scope.jokePlace = $scope.settings[setting].place;
-                    };
+                    getTodos();
+                    $scope.todoWidget = $scope.settings[setting];
+                };
+                if ($scope.settings[setting].widget=="weather") 
+                {
+                    getWeather($scope.settings[setting].account);
+                    $scope.weatherWidget = $scope.settings[setting];
+                };
+                if ($scope.settings[setting].widget=="joke") 
+                {
+                    getJoke();
+                    $scope.jokeWidget = $scope.settings[setting];
                 };
             };
+        };
 
-            $('#widgets').sortable({
-                helper: 'clone',
-                forceHelperSize: true,
-                items: '.move',
-                helper: 'original',
-                cursor: 'move',
-                start: function(event, ui) {
-                    
-                }, 
-                stop: function(event, ui) {
-                   
-                },
-                update: function(event, ui) {
-                    var data = $(this).sortable('toArray');
-                    for (var i = 0; i < data.length; i++) {
-                        var sUrl = "http://chromepage.local/backend/web/api/settings/"+data[i]+"/places/"+i;
-                        var oConfig = {
-                            url: sUrl,
-                            method: "PATCH",
-                            params: {callback: "JSON_CALLBACK"},
-                            headers: {Authorization: 'Bearer ' + $scope.token}
-                        };
-                        $http(oConfig).success(function(data){
-                            // console.log(data);
-                        }).error(function(data){
-                             console.log("error");
-                        });
+        $('#widgets').sortable({
+            helper: 'clone',
+            forceHelperSize: true,
+            items: '.move',
+            helper: 'original',
+            cursor: 'move',
+            update: function(event, ui) {
+                var data = $(this).sortable('toArray');
+                for (var i = 0; i < data.length; i++) {
+                    var sUrl = "http://chromepage.local/backend/web/api/settings/"+data[i]+"/places/"+i;
+                    var oConfig = {
+                        url: sUrl,
+                        method: "PATCH",
+                        params: {callback: "JSON_CALLBACK"},
+                        headers: {Authorization: 'Bearer ' + $scope.token}
                     };
-                },
-            });
+                    $http(oConfig).success(function(data){
+                        // console.log(data);
+                    }).error(function(data){
+                         console.log("error");
+                    });
+                };
+            },
         });
+
+        $scope.changeSize = function($id, $size){
+            if ($size < 3) {
+                $size = $size + 1;
+            }
+            else {
+                $size = 1;
+            }
+            $scope.newWidgetSize = $size;
+            var sUrl = "http://chromepage.local/backend/web/api/settings/"+$id+"/sizes/"+$size;
+                    var oConfig = {
+                        url: sUrl,
+                        method: "PATCH",
+                        params: {callback: "JSON_CALLBACK"},
+                        headers: {Authorization: 'Bearer ' + $scope.token}
+                    };
+                    $http(oConfig).success(function(data){
+                        console.log(data);
+                    }).error(function(data){
+                         console.log("error");
+                    });
+        }
         
         function getTodos(){
-	    // $scope.getTodos = function(){
             var sUrl = "http://chromepage.local/backend/web/api/tasks";
             var oConfig = {
                 url: sUrl,
@@ -88,7 +107,6 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
         }
 
         function getWeather($location){
-        // $scope.getWeather = function($location){
             var sUrl = "http://api.openweathermap.org/data/2.5/weather?q="+$location+"&units=metric&appid=ad5bf1181d1ab5166d19757241c1511e";
             var oConfig = {
                 url: sUrl,
@@ -96,12 +114,12 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
             };
             $http(oConfig).success(function(data){
                 $scope.weather = data;
-                // console.log($scope.weather);
+            }).error(function(data){
+                console.log(data);
             });
         }
 
         function getJoke(){
-        // $scope.getJoke = function(){
             var sUrl = "http://chromepage.local/backend/web/api/jokes.json";
             var oConfig = {
                 url: sUrl,

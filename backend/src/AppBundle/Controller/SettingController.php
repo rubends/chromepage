@@ -52,6 +52,7 @@ class SettingController extends FOSRestController
             $setting->setWidget($widget);
             $setting->setVisible(1);
             $setting->setPlace(1);
+            $setting->setSize(2);
             $setting->setUserId($userId);
             if ($widget == 'weather') {
                 $setting->setAccount("Stuttgart");
@@ -83,7 +84,7 @@ class SettingController extends FOSRestController
      *
      * @param int $id
      *
-     * @return Setting[]
+     * @return int
      */
     public function patchSettingToggleAction($id)
     {
@@ -93,13 +94,15 @@ class SettingController extends FOSRestController
 
         if ($visible==0) {
             $setting->setVisible(1);
+            $updateVis = 1;
         }
         else{
             $setting->setVisible(0);
+            $updateVis = 0;
         }
 
         $em->flush();
-        return new JsonResponse(array('API' => "Toggle visible setting."));
+        return $updateVis;
     }
 
     /**
@@ -138,5 +141,24 @@ class SettingController extends FOSRestController
 
         $em->flush();
         return new JsonResponse(array('API' => "Changed place setting."));
+    }
+
+    /**
+     * @ApiDoc()
+     *
+     * @param int $id
+     * @param int $size
+     *
+     * @return Setting[]
+     */
+    public function patchSettingSizeAction($id, $size)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $setting = $em->getRepository('AppBundle:Setting')->find($id);
+
+        $setting->setSize($size);
+
+        $em->flush();
+        return new JsonResponse(array('API' => "Changed size setting."));
     }
 }
