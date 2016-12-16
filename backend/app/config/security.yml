@@ -66,4 +66,5 @@ security:
     access_control:
         - { path: ^/api/users,       roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/api/tasks,       roles: IS_AUTHENTICATED_REMEMBERED }
+        - { path: ^/api/grocerys,       roles: IS_AUTHENTICATED_REMEMBERED }
         - { path: ^/api,       roles: IS_AUTHENTICATED_ANONYMOUSLY } #IS_AUTHENTICATED_FULLY

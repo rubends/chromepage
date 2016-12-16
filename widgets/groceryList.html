@@ -1,0 +1,17 @@
+<div class="col-md-{{groceryWidget.size}} move" id="{{groceryWidget.id}}" data-place="{{groceryWidget.place}}">
+	<div class="panel panel-default widget" id="groceryWidget">
+	          	<div class="panel-heading" ng-style="widgetHeader">
+	          		<h3>Grocery List</h3>
+	          		<div class="resize">
+	          			<i class="fa fa-window-maximize" aria-hidden="true" ng-click="changeSize(groceryWidget.id, groceryWidget.size); groceryWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
+	          		</div>
+	          	</div>
+	          	<div class="panel-body" ng-style="widgetBody">
+	          		<ul>
+						<li ng-repeat="grocery in groceries">
+							{{grocery.item}}
+						</li>
+					</ul>
+	          	</div>
+	        </div>
+</div>

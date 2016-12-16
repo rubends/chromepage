@@ -22,6 +22,7 @@
 					</form> 
 	          	</div>
 	          	<div class="panel-footer" id="done" ng-style="widgetBody">
+	          		<p>done</p>
 	          		<ul>
 						<li ng-repeat="task in todos" ng-if="task.done==1">
 							<span href="" ng-click="toggleDone(task.id)">{{task.todo}}</span>

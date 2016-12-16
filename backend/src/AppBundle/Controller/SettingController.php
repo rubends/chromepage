@@ -47,7 +47,7 @@ class SettingController extends FOSRestController
         $userId = $user->getId();
 
         $place = -1; //every widget gets the next place
-        $widgets = ['todo', 'weather', 'joke', 'catGifs'];
+        $widgets = ['todo', 'weather', 'joke', 'catGifs', 'groceryList'];
         foreach ($widgets as $widget) {
             $setting = new Setting();
             $setting->setWidget($widget);

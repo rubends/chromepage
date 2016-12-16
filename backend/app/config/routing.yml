@@ -12,6 +12,10 @@ task:
     resource: "@AppBundle/Controller/TaskController.php"
     type:     rest
     prefix: /api
+grocery:
+    resource: "@AppBundle/Controller/GroceryController.php"
+    type:     rest
+    prefix: /api
 setting:
     resource: "@AppBundle/Controller/SettingController.php"
     type:     rest

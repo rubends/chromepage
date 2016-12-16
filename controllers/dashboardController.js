@@ -1,5 +1,6 @@
 app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location', 'settings', 'user', function($scope, $http, $cookies, $location, settings, user){
 		$scope.todos = [];
+        $scope.groceries = [];
         $scope.weather = [];
         $scope.widgetTemplates = [];
 
@@ -40,8 +41,12 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 };
                 if ($scope.settings[setting].widget=="catGifs") 
                 {
-                    getJoke();
                     $scope.catWidget = $scope.settings[setting];
+                };
+                if ($scope.settings[setting].widget=="groceryList") 
+                {
+                    getGroceries();
+                    $scope.groceryWidget = $scope.settings[setting];
                 };
 
             };
@@ -109,6 +114,22 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 for (todo in data) 
                 {
                		$scope.todos.push(data[todo]);
+                };
+            });
+        }
+
+        function getGroceries(){
+            var sUrl = "http://chromepage.local/backend/web/api/grocerys";
+            var oConfig = {
+                url: sUrl,
+                method: "GET",
+                params: {callback: "JSON_CALLBACK"},
+                headers: {Authorization: 'Bearer ' + $scope.token}
+            };
+            $http(oConfig).success(function(data){
+                for (grocery in data) 
+                {
+                    $scope.groceries.push(data[grocery]);
                 };
             });
         }
