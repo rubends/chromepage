@@ -51,7 +51,7 @@
 }
 
 /*WIDGET*/
-#dashboard #todo li:hover, #dashboard #done li span{
+#dashboard #todo li:hover, #dashboard #done li span, #dashboard #grocery li:hover{
 	text-decoration: line-through;
 }
 #dashboard #done li span:hover{
@@ -60,6 +60,14 @@
 #dashboard{
 	.panel-heading{
 		border: none;
+
+		&:after{
+				content: " ";
+			   visibility: hidden;
+			   display: block;
+			   height: 0;
+			   clear: both;
+		}
 
 		h3{
 			font-weight: bold;
@@ -77,19 +85,39 @@
 		}
 	}
 
-	#tasks{
+	ul{
+		padding-left: 0;
+
 		li{
 			cursor: pointer;
-			list-style-type: circle;
+			list-style: none;
+		}
 
+		.fa{
+			padding-right: 10px;
+    		padding-left: 10px;
+		}
+	}
+
+	#tasks{
+		li{
 			.deleteTodo{
 				float:right;
+				display: none;
+			}
+			.hoverSquare{
 				display: none;
 			}
 		}
 		li:hover{
 			.deleteTodo{
 				display: block;
+			}
+			.checkSquare{
+				display: none;
+			}
+			.hoverSquare{
+				display: inline-block;
 			}
 		}
 
@@ -114,6 +142,24 @@
 	#catGif{
 		img{
 			width: 100%;
+		}
+	}
+
+	#grocery{
+		.btn-primary{
+			border:none;
+			margin-bottom: 15px;
+		}
+	}
+
+	#analogClock{
+		.panel-body{
+			overflow: hidden;
+		}
+		.divOverlay{
+			width: 88%;
+    		height: 170px;
+    		position: absolute;
 		}
 	}
 }

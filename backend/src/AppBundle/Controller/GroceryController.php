@@ -47,7 +47,6 @@ class GroceryController extends FOSRestController
     {
         $grocery = new Grocery();
         $grocery->setItem($request->request->get('item'));
-        $grocery->setDone("0");
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $grocery->setUserID($user->getId());
@@ -87,6 +86,25 @@ class GroceryController extends FOSRestController
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         return $this->getDoctrine()->getRepository('AppBundle:Grocery')->findByUserID($user->getId());
+    }
+
+    /**
+     * @ApiDoc()
+     *
+     * @return Grocery[]
+     */
+    public function deleteAllGroceryAction()
+    {
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $groceries = $this->getDoctrine()->getRepository('AppBundle:Grocery')->findByUserID($user->getId());
+
+        foreach ($groceries as $grocery) {
+            $this->getDoctrine()->getManager()->remove($grocery);
+        }
+        
+        $this->getDoctrine()->getManager()->flush();
+
+        return new JsonResponse(array('API' => "Deleted all groceries."));
     }
 
     // /**

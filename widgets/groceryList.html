@@ -1,17 +1,28 @@
-<div class="col-md-{{groceryWidget.size}} move" id="{{groceryWidget.id}}" data-place="{{groceryWidget.place}}">
-	<div class="panel panel-default widget" id="groceryWidget">
+<div class="col-md-{{groceryWidget.size}} move clearfix" id="{{groceryWidget.id}}" data-place="{{groceryWidget.place}}">
+	<div class="panel panel-default widget" id="grocery">
 	          	<div class="panel-heading" ng-style="widgetHeader">
 	          		<h3>Grocery List</h3>
 	          		<div class="resize">
-	          			<i class="fa fa-window-maximize" aria-hidden="true" ng-click="changeSize(groceryWidget.id, groceryWidget.size); groceryWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
+	          			<i class="fa fa-window-restore" aria-hidden="true" ng-click="changeSize(groceryWidget.id, groceryWidget.size); groceryWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
 	          		</div>
 	          	</div>
 	          	<div class="panel-body" ng-style="widgetBody">
+	          		<p ng-hide="groceries.length">No groceries on your list</p>
 	          		<ul>
 						<li ng-repeat="grocery in groceries">
-							{{grocery.item}}
+							<i class="fa fa-shopping-basket" aria-hidden="true"></i>
+							<span ng-click="deleteGrocery(grocery.id)">{{grocery.item}}</span>
 						</li>
 					</ul>
+					<button type="button" class="btn btn-primary btn-block" ng-style="buttonStyle" ng-click="deleteAllGroceries()" ng-show="groceries.length">Bought everything</button>
+					<form>
+					  <div class="input-group">
+					      <input type="text" ng-model="groceryForm.item" id="addGrocery" name="grocery" class="form-control" placeholder="Add a grocery">
+					      <span class="input-group-btn">
+					        <button class="btn btn-secondary" type="button" ng-click="postGrocery(groceryForm.item)" ng-style="buttonStyle"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
+					      </span>
+				    </div>
+					</form> 
 	          	</div>
 	        </div>
 </div>

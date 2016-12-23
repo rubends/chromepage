@@ -1,0 +1,14 @@
+<div class="col-md-{{analogClockWidget.size}} move clearfix" id="{{analogClockWidget.id}}" data-place="{{analogClockWidget.place}}">
+	<div class="panel panel-default widget" id="analogClock">
+	          	<div class="panel-heading" ng-style="widgetHeader">
+	          		<h3>Clock</h3>
+	          		<div class="resize">
+	          			<i class="fa fa-window-restore" aria-hidden="true" ng-click="changeSize(analogClockWidget.id, analogClockWidget.size); analogClockWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
+	          		</div>
+	          	</div>
+	          	<div class="panel-body text-center" ng-style="widgetBody">
+	          		<div class="divOverlay"></div>
+	          		<iframe src="http://free.timeanddate.com/clock/i5iecm6u/n317/szw160/szh160/hoc000/hbw2/hfceee/cf100/hgr0/fdi76/mqc000/mql10/mqw4/mqd98/mhc000/mhl10/mhw4/mhd98/mmc000/mml10/mmw1/mmd98" frameborder="0" width="160px" height="160px"></iframe>
+	          	</div>
+	        </div>
+</div>

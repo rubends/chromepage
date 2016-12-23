@@ -1,9 +1,9 @@
-<div class="col-md-{{weatherWidget.size}} move" id="{{weatherWidget.id}}" data-place="{{weatherWidget.place}}">
+<div class="col-md-{{weatherWidget.size}} move clearfix" id="{{weatherWidget.id}}" data-place="{{weatherWidget.place}}">
 	<div class="panel panel-default widget" id="weather">
 	          	<div class="panel-heading" ng-style="widgetHeader">
 	          		<h3>Weather</h3>
 	          		<div class="resize">
-	          			<i class="fa fa-window-maximize" aria-hidden="true" ng-click="changeSize(weatherWidget.id, weatherWidget.size); weatherWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
+	          			<i class="fa fa-window-restore" aria-hidden="true" ng-click="changeSize(weatherWidget.id, weatherWidget.size); weatherWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
 	          		</div>
 	          	</div>
 	          	<div class="panel-body" ng-style="widgetBody">

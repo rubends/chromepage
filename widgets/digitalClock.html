@@ -1,0 +1,14 @@
+<div class="col-md-{{digitalClockWidget.size}} move clearfix" id="{{digitalClockWidget.id}}" data-place="{{digitalClockWidget.place}}">
+	<div class="panel panel-default widget" id="digitalClock">
+	          	<div class="panel-heading" ng-style="widgetHeader">
+	          		<h3>Clock</h3>
+	          		<div class="resize">
+	          			<i class="fa fa-window-restore" aria-hidden="true" ng-click="changeSize(digitalClockWidget.id, digitalClockWidget.size); digitalClockWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
+	          		</div>
+	          	</div>
+	          	<div class="panel-body text-center" ng-style="widgetBody">
+	          		<div class="divOverlay"></div>
+	          		<iframe src="http://free.timeanddate.com/clock/i5iee243/n317/fn17/ftb/tt0/tm1/ts1/tb4" frameborder="0" width="208" height="36"></iframe>
+	          	</div>
+	        </div>
+</div>

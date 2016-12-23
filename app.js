@@ -36,9 +36,9 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
                 settings: ['settingsService', function(settingsService){
                     return settingsService.get();
                 }],
-                user: ['getUserService', function(getUserService){
-                    return getUserService.getUser();
-                }]
+                // user: ['getUserService', function(getUserService){
+                //     return getUserService.getUser();
+                // }]
             }
         })
 		.otherwise({
@@ -46,7 +46,7 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
 	    });
 	});
 
-    app.controller("chromePageCtrl", ['$scope', '$http', '$cookies', '$location', 'getUserService', function($scope, $http, $cookies, $location, getUserService){
+    app.controller("chromePageCtrl", ['$scope', '$http', '$cookies', '$location', 'getUserService', '$rootScope', function($scope, $http, $cookies, $location, getUserService, $rootScope){
         $scope.user = {loggedIn: false};
         $scope.error = {exist: false};
 
@@ -56,7 +56,7 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
                 getUserService.getUser().success(function(data){
                     $scope.user = data;
                     $scope.user.loggedIn = true;
-                    console.log("get user");
+                    console.log("get user from cookie");
                 }).error(function(data){
                     $location.path('/login');
                     $scope.error.reason = "You have to be loggedin";

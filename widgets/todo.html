@@ -1,14 +1,17 @@
-<div class="col-md-{{todoWidget.size}} move" id="{{todoWidget.id}}" data-place="{{todoWidget.place}}">
+<div class="col-md-{{todoWidget.size}} move clearfix" id="{{todoWidget.id}}" data-place="{{todoWidget.place}}">
 	<div class="panel panel-default" id="tasks">
 	          	<div class="panel-heading" ng-style="widgetHeader">
 	          		<h3>To do</h3>
 	          		<div class="resize">
-	          			<i class="fa fa-window-maximize" aria-hidden="true" ng-click="changeSize(todoWidget.id, todoWidget.size); todoWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
+	          			<i class="fa fa-window-restore" aria-hidden="true" ng-click="changeSize(todoWidget.id, todoWidget.size); todoWidget.size = newWidgetSize;" data-toggle="tooltip" title="Resize widget" onmouseenter="$(this).tooltip('show')"></i>
 	          		</div>
 	          	</div>
 	          	<div class="panel-body" id="todo" ng-style="widgetBody">
+	          		<p ng-hide="todos.length">You have no todo's</p>
 					<ul>
 						<li ng-repeat="task in todos" ng-if="task.done==0">
+							<i class="fa fa-square-o checkSquare" aria-hidden="true"></i>
+							<i class="fa fa-check-square-o hoverSquare" aria-hidden="true"></i>
 							<span href="" ng-click="toggleDone(task.id)">{{task.todo}}</span>
 							<i class="fa fa-btn fa-times deleteTodo" ng-click="deleteTodo(task.id)"></i></li>
 					</ul>
@@ -16,7 +19,7 @@
 					  <div class="input-group">
 					      <input type="text" ng-model="todoForm.todo" id="addTodo" name="todo" class="form-control" placeholder="Add a todo">
 					      <span class="input-group-btn">
-					        <button class="btn btn-secondary" type="button" ng-click="postTodo(todoForm.todo)" ng-style="widgetHeader">Add</button>
+					        <button class="btn btn-secondary" type="button" ng-click="postTodo(todoForm.todo)" ng-style="widgetHeader"><i class="fa fa-plus-circle" aria-hidden="true"></i></button>
 					      </span>
 				    </div>
 					</form> 
@@ -25,6 +28,8 @@
 	          		<p>done</p>
 	          		<ul>
 						<li ng-repeat="task in todos" ng-if="task.done==1">
+							<i class="fa fa-check-square-o checkSquare" aria-hidden="true"></i>
+							<i class="fa fa-square-o hoverSquare" aria-hidden="true"></i>
 							<span href="" ng-click="toggleDone(task.id)">{{task.todo}}</span>
 							<i class="fa fa-btn fa-times deleteTodo" ng-click="deleteTodo(task.id)"></i></li>
 					</ul>

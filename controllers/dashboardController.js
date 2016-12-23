@@ -1,4 +1,4 @@
-app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location', 'settings', 'user', function($scope, $http, $cookies, $location, settings, user){
+app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location', 'settings', function($scope, $http, $cookies, $location, settings){
 		$scope.todos = [];
         $scope.groceries = [];
         $scope.weather = [];
@@ -9,16 +9,20 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
             $scope.error.reason = "You have to be loggedin";
             $scope.error.exist = true;
         }
-        else {
+        else if($scope.user.loggedIn){
             $scope.settings = settings.data;
-            $scope.user = user.data;
-            $scope.user.loggedIn = true;
+            // $scope.user = user.data;
+            // $scope.user.loggedIn = true;
+            console.log($scope.user);
+            $scope.dashboardStyle = {'background-color': $scope.user.background_color, 'color': $scope.user.font_color};
+            $scope.widgetHeader = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
+            $scope.widgetBody = {'background-color': $scope.user.widget_color, 'color': $scope.user.font_color};
+            $scope.buttonStyle = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
+            $scope.buttonHoverStyle = {'background-color': $scope.user.font_color, 'color': $scope.user.header_color};
+
         }
 
-        $scope.dashboardStyle = {'background-color': $scope.user.background_color, 'color': $scope.user.font_color};
-        $scope.widgetHeader = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
-        $scope.widgetBody = {'background-color': $scope.user.widget_color, 'color': $scope.user.font_color};
-
+        
         for(setting in $scope.settings){
             if ($scope.settings[setting].visible==1) 
             {
@@ -48,12 +52,23 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                     getGroceries();
                     $scope.groceryWidget = $scope.settings[setting];
                 };
+                if ($scope.settings[setting].widget=="analogClock") 
+                {
+                    $scope.analogClockWidget = $scope.settings[setting];
+                };
+                if ($scope.settings[setting].widget=="digitalClock") 
+                {
+                    $scope.digitalClockWidget = $scope.settings[setting];
+                };
 
             };
         };
-        if($scope.widgetTemplates.length == 0){
-            $scope.noWidgetSet = true;
-        }
+
+        $('.grid').masonry({
+          itemSelector: '.move',
+          columnWidth: '.move',
+          percentPosition: true
+        });
 
         $('#widgets').sortable({
             helper: 'clone',
@@ -226,6 +241,55 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 getWeather($weather);
             }).error(function(data){
                  console.log("error");
+            });
+        }
+
+        $scope.postGrocery = function($grocery){
+            var sUrl = "http://chromepage.local/backend/web/api/grocerys";
+            var oConfig = {
+                url: sUrl,
+                method: "POST",
+                data: {item:$grocery},
+                params: {callback: "JSON_CALLBACK"},
+                headers: {Authorization: 'Bearer ' + $scope.token}
+            };
+            $http(oConfig).success(function(data){
+                $scope.groceries = [];
+                for (grocery in data) 
+                {
+                    $scope.groceries.push(data[grocery]);
+                };
+                $("#addGrocery").val('');
+            });
+        }
+
+        $scope.deleteGrocery = function($id){
+            var sUrl = "http://chromepage.local/backend/web/api/groceries/"+$id;
+            var oConfig = {
+                url: sUrl,
+                method: "DELETE",
+                params: {callback: "JSON_CALLBACK"},
+                headers: {Authorization: 'Bearer ' + $scope.token}
+            };
+            $http(oConfig).success(function(data){
+                $scope.groceries = [];
+                for (grocery in data) 
+                {
+                    $scope.groceries.push(data[grocery]);
+                };
+            });
+        }
+
+        $scope.deleteAllGroceries = function(){
+            var sUrl = "http://chromepage.local/backend/web/api/all/grocery";
+            var oConfig = {
+                url: sUrl,
+                method: "DELETE",
+                params: {callback: "JSON_CALLBACK"},
+                headers: {Authorization: 'Bearer ' + $scope.token}
+            };
+            $http(oConfig).success(function(data){
+                $scope.groceries = [];
             });
         }
 
