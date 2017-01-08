@@ -1,27 +1,44 @@
-app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location', 'settings', function($scope, $http, $cookies, $location, settings){
+app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location', 'settings', 'user', function($scope, $http, $cookies, $location, settings, user){
 		$scope.todos = [];
         $scope.groceries = [];
         $scope.weather = [];
         $scope.widgetTemplates = [];
 
-        if (settings == "error") {
-            $location.path('/login');
-            $scope.error.reason = "You have to be loggedin";
-            $scope.error.exist = true;
-        }
-        else if($scope.user.loggedIn){
+        if (settings != "error" && user != "error") {
             $scope.settings = settings.data;
-            // $scope.user = user.data;
-            // $scope.user.loggedIn = true;
+            $scope.user = user.data;
+            $scope.user.loggedIn = true;
+
             console.log($scope.user);
             $scope.dashboardStyle = {'background-color': $scope.user.background_color, 'color': $scope.user.font_color};
             $scope.widgetHeader = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
             $scope.widgetBody = {'background-color': $scope.user.widget_color, 'color': $scope.user.font_color};
             $scope.buttonStyle = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
             $scope.buttonHoverStyle = {'background-color': $scope.user.font_color, 'color': $scope.user.header_color};
-
         }
+        else{
+            $location.path('/login');
+            $scope.error.reason = "You have to be loggedin";
+            $scope.error.exist = true;
+        }
+        // if (settings == "error") {
+        //     $location.path('/login');
+        //     $scope.error.reason = "You have to be loggedin";
+        //     $scope.error.exist = true;
+        // }
+        // else if($scope.user.loggedIn){
+        //     $scope.settings = settings.data;
+        //     // $scope.user = user.data;
+        //     // $scope.user.loggedIn = true;
+        //     console.log($scope.user);
+        //     $scope.dashboardStyle = {'background-color': $scope.user.background_color, 'color': $scope.user.font_color};
+        //     $scope.widgetHeader = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
+        //     $scope.widgetBody = {'background-color': $scope.user.widget_color, 'color': $scope.user.font_color};
+        //     $scope.buttonStyle = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
+        //     $scope.buttonHoverStyle = {'background-color': $scope.user.font_color, 'color': $scope.user.header_color};
 
+        // }
+        console.log("dashboard user:" + $scope.user.loggedIn);
         
         for(setting in $scope.settings){
             if ($scope.settings[setting].visible==1) 

@@ -1,4 +1,5 @@
-<section id="settings" class="">
+<section id="settings" class="page">
+    <section ng-include="'error.html'"></section>
     <div class="container">
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
@@ -7,7 +8,7 @@
                       <li role="presentation" class="active"><a ng-click="settingsView = 'widgets'" data-toggle="pill">Widgets</a></li>
                       <li role="presentation"><a ng-click="settingsView = 'colors'" data-toggle="pill">Colors</a></li>
                     </ul>
-                    <div class="settings" id="widgetSettings" ng-show="settingsView === 'widgets'">
+                    <div class="settingsTab" id="widgetSettings" ng-show="settingsView === 'widgets'">
                         <table class="table">
                             <thead>
                               <tr>
@@ -17,7 +18,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="setting in settings" ng-if="setting.visible==1">
-                                    <td><label for="{{setting.widget}}">{{setting.widget}}</label></td>
+                                    <td>{{setting.widget}}</td>
                                     <!-- <input type="checkbox" name="{{setting.widget}}" value="{{setting.show}}" ng-click="toggleShow(setting.id)" ng-checked="setting.visible==1"> -->
                                     <td><i class="fa fa-btn fa-times btn btn-default" ng-click="toggleShow(setting.id)"></i></td>
                                 </tr>
@@ -29,7 +30,7 @@
                             <option ng-repeat="setting in settings" ng-if="setting.visible==0" value="{{setting.id}}">{{setting.widget}}</option>
                         </select>
                     </div>
-                    <div class="settings" id="colorSettings" ng-show="settingsView === 'colors'">
+                    <div class="settingsTab" id="colorSettings" class="settingsTab" ng-show="settingsView === 'colors'">
                         <p>Create your own colorscheme.</p>
                         <table class="table">
                             <thead>
@@ -40,19 +41,19 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td><label for="backgroundcolor">Background color</label></td>
+                                    <td>Background color</td>
                                     <td><input type="color" name="backgroundcolor" value="{{user.background_color}}" ng-change="changeColor('backgroundcolor', newBackgroundColor)" ng-model="newBackgroundColor" ng-init="newBackgroundColor=user.background_color"></td>
                                 </tr>
                                 <tr>
-                                    <td><label for="widgetcolor">Widget color</label></td>
+                                    <td>Widget color</td>
                                     <td><input type="color" name="widgetcolor" value="{{user.widget_color}}" ng-change="changeColor('widgetcolor', newWidgetColor)" ng-model="newWidgetColor" ng-init="newWidgetColor=user.widget_color"></td>
                                 </tr>
                                 <tr>
-                                    <td><label for="headercolor">Header color</label></td>
+                                    <td>Header color</td>
                                     <td><input type="color" name="headercolor" value="{{user.header_color}}" ng-change="changeColor('headercolor', newHeaderColor)" ng-model="newHeaderColor" ng-init="newHeaderColor=user.header_color"></td>
                                 </tr>
                                 <tr>
-                                    <td><label for="fontcolor">Font color</label></td>
+                                    <td>Font color</td>
                                     <td><input type="color" name="fontcolor" value="{{user.font_color}}" ng-change="changeColor('fontcolor', newFontColor)" ng-model="newFontColor" ng-init="newFontColor=user.font_color"></td>
                                 </tr>
                             </tbody>

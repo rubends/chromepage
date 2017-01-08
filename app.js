@@ -36,9 +36,9 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
                 settings: ['settingsService', function(settingsService){
                     return settingsService.get();
                 }],
-                // user: ['getUserService', function(getUserService){
-                //     return getUserService.getUser();
-                // }]
+                user: ['getUserService', function(getUserService){
+                    return getUserService.getUser();
+                }]
             }
         })
 		.otherwise({

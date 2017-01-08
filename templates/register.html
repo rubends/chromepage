@@ -1,13 +1,14 @@
-<section id="register" class="">
+<section id="register" class="page">
+	<section ng-include="'error.html'"></section>
 	<div class="container">
 	  <div class="row">
 	    <div class="col-md-8 col-md-offset-2">
-	        <div class="panel panel-default">
-	          <div class="panel-heading">Register</div>
-	          <div class="panel-body">
-	          	<form ng-submit="validateForm.$valid && register()" name="validateForm" novalidate>
+	        <div class="">
+	          <h1 class="title">Register</h1>
+	          <div class="">
+	          	<form ng-submit="validateForm.$valid && register()" name="validateForm" novalidate class="form-horizontal">
 		            <div class="form_group">
-		                <label for="text" class="col-md-4 control-label">Username</label>
+		                <label for="name" class="col-md-4 control-label">Username</label>
 						<div class="col-md-6">
 			                <input id="name" type="text" class="form-control" name="name" ng-model="registerForm.name" required ng-minlength="3">
 			            </div>
@@ -36,7 +37,7 @@
 
 		            <div class="form-group">
 		                <div class="col-md-8 col-md-offset-4" style="margin-top:5px;">
-		                    <button type="submit" class="btn btn-primary" ng-disabled="validateForm.$invalid">
+		                    <button type="submit" class="btn customBtn" ng-disabled="validateForm.$invalid">
 		                        <i class="fa fa-btn fa-user"></i> Register
 		                    </button>
 		                </div>

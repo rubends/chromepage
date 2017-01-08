@@ -1,4 +1,5 @@
-<section id="dashboard" ng-style="dashboardStyle">
+<section id="dashboard" class="page" ng-style="dashboardStyle">
+	<section ng-include="'error.html'"></section>
 	<div class="container-fluid" id="widgets">
 		<h2 ng-hide="widgetTemplates.length" class="text-center">There are no widgets set. Go to settings to add widgets.</h2>
 		<div class="row grid">

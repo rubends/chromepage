@@ -1,10 +1,46 @@
+@mainNavColor: #2b2b2b;
+
+.page{
+	padding-top: 50px;
+	min-height: calc(~"100vh - 50px");
+}
+.customBtn{
+	margin-top: 20px;
+	display: inline-block;
+    background-color: @mainNavColor;
+    border: 1px solid @mainNavColor;
+    color: white;
+    padding: 5px;
+    width: 100px;
+    font-size: 1.2em;
+    border-radius: 4px;
+
+    &:hover{
+    	text-decoration:none;
+		background-color: white;
+		color:@mainNavColor;
+    }
+}
+.btnLarge{
+	width: 200px;
+}
+.title{
+	text-align: center;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid white;
+}
 /*BODY*/
 
 /*NAVBAR*/
 .navbar-default{
-	background-color: #2b2b2b !important;
+	background-color: @mainNavColor !important;
 	border: none !important;
 	color: white;
+	margin-bottom: 0px !important;
 
 	a{
 		color: white !important;
@@ -24,12 +60,42 @@
     padding-top: 10px;
     padding-bottom: 10px;
     border-radius: 4px;
+    color: white;
+    background-color: rgba(255, 0, 0, 0.45);
+}
+
+/* HOME */
+#home, #login, #register{
+	background: url(/img/homebackground.jpg) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    color: white;
+}
+#home{
+	p{
+		font-size: 1.5em;
+	}
+}
+
+#login{
+	form{
+		width: 50%;
+	    margin-left: auto;
+	    margin-right: auto;
+	}
+}
+
+#register{
+	.form-control{
+		margin-bottom: 15px;
+	}
 }
 
 /*DASHBOARD*/
 #dashboard{
 	min-height: 100vh;
-	top: -20px;
     position: relative;
     padding-top: 20px;
 
@@ -132,7 +198,7 @@
 		input[type="text"] {
 			    border: none;
 			    box-shadow: none;
-			    border-bottom: 1px solid #2b2b2b;
+			    border-bottom: 1px solid @mainNavColor;
 			    border-radius: 0px;
 			    font-size: 85%;
 			    padding: 0;
@@ -168,6 +234,32 @@
 input[type="color"] {
 	border: none;
 	padding: 0px;
+}
+
+#settings{
+	.nav-tabs {
+    	border-bottom: 1px solid @mainNavColor;
+    	background-color: @mainNavColor;
+
+    	li>a{
+    		color: white;
+
+    		&:hover{
+    			cursor: pointer;
+    			color: @mainNavColor;
+    		}
+    	}
+    	li.active>a {
+    		color: @mainNavColor;
+    		border: 1px solid @mainNavColor;
+    		border-bottom-color: transparent;
+    	}
+	}
+	.settingsTab{
+		padding: 3%;
+    	border: 1px solid @mainNavColor;
+    	border-top: none;
+	}
 }
 
 /*FOOTER*/
