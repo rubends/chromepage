@@ -65,21 +65,22 @@
 }
 
 /* HOME */
-#home, #login, #register{
+#home, #login, #register, #settings{
 	background: url(/img/homebackground.jpg) no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
     background-size: cover;
-    color: white;
 }
 #home{
+	color: white;
 	p{
 		font-size: 1.5em;
 	}
 }
 
 #login{
+	color: white;
 	form{
 		width: 50%;
 	    margin-left: auto;
@@ -88,6 +89,7 @@
 }
 
 #register{
+	color: white;
 	.form-control{
 		margin-bottom: 15px;
 	}
@@ -228,6 +230,11 @@
     		position: absolute;
 		}
 	}
+	#digitalClock{
+		#c1{
+			background-color: transparent;
+		}
+	}
 }
 
 /*SETTINGS*/
@@ -255,6 +262,9 @@ input[type="color"] {
     		border-bottom-color: transparent;
     	}
 	}
+	.settingsDiv{
+		background-color: white;
+	}
 	.settingsTab{
 		padding: 3%;
     	border: 1px solid @mainNavColor;
@@ -263,3 +273,6 @@ input[type="color"] {
 }
 
 /*FOOTER*/
+
+
+/* MEDIA QUERIES */

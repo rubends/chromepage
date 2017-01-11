@@ -45,43 +45,29 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
             {
                 $scope.widgetTemplates[$scope.settings[setting].place] = "widgets/" + $scope.settings[setting].widget + ".html";
 
+                $scope[$scope.settings[setting].widget + "Widget"] = $scope.settings[setting];
                 if ($scope.settings[setting].widget=="todo") 
                 {
                     getTodos();
-                    $scope.todoWidget = $scope.settings[setting];
                 };
                 if ($scope.settings[setting].widget=="weather") 
                 {
                     getWeather($scope.settings[setting].account);
-                    $scope.weatherWidget = $scope.settings[setting];
                 };
                 if ($scope.settings[setting].widget=="joke") 
                 {
                     getJoke();
-                    $scope.jokeWidget = $scope.settings[setting];
-                };
-                if ($scope.settings[setting].widget=="catGifs") 
-                {
-                    $scope.catWidget = $scope.settings[setting];
                 };
                 if ($scope.settings[setting].widget=="groceryList") 
                 {
                     getGroceries();
-                    $scope.groceryWidget = $scope.settings[setting];
-                };
-                if ($scope.settings[setting].widget=="analogClock") 
-                {
-                    $scope.analogClockWidget = $scope.settings[setting];
-                };
-                if ($scope.settings[setting].widget=="digitalClock") 
-                {
-                    $scope.digitalClockWidget = $scope.settings[setting];
                 };
 
             };
         };
+        console.log($scope.digitalClockTest);
 
-        $('.grid').masonry({
+        $('#grid').masonry({
           itemSelector: '.move',
           columnWidth: '.move',
           percentPosition: true
@@ -113,8 +99,8 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
         });
 
         $scope.changeSize = function($id, $size){
-            if ($size < 3) {
-                $size = $size + 1;
+            if ($size < 4) {
+                $size = $size*2;
             }
             else {
                 $size = 1;
@@ -220,7 +206,8 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
-            	$scope.todos = [];
+            	$scope.todos.push({todo: $todo, done: 0}); //faster visual
+                $scope.todos = [];
             	for (todo in data) 
                 {
                		$scope.todos.push(data[todo]);
@@ -271,6 +258,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
+                $scope.groceries.push($grocery); //faster visual
                 $scope.groceries = [];
                 for (grocery in data) 
                 {
