@@ -2,9 +2,9 @@
 	<section ng-include="'error.html'"></section>
 	<div class="container-fluid" id="widgets">
 		<h2 ng-hide="widgetTemplates.length" class="text-center">There are no widgets set. Go to settings to add widgets.</h2>
-		<div id="grid">
-			<div ng-repeat="widget in widgetTemplates" class="moveWidget">
-		        <div ng-include="widget"></div>
+		<div class="grid">
+			<div ng-repeat="widgetSetting in settings | orderBy:'place'" class="moveWidget col-md-{{widgetSetting.size}}" id="{{widgetSetting.id}}">
+		        <div ng-include="widgetSetting.widgetTemplate"></div>
 		    </div>
 		 </div>
     </div>

@@ -43,7 +43,8 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
         for(setting in $scope.settings){
             if ($scope.settings[setting].visible==1) 
             {
-                $scope.widgetTemplates[$scope.settings[setting].place] = "widgets/" + $scope.settings[setting].widget + ".html";
+                // $scope.widgetTemplates[$scope.settings[setting].place] = "widgets/" + $scope.settings[setting].widget + ".html";
+                $scope.settings[setting].widgetTemplate = "widgets/" + $scope.settings[setting].widget + ".html";
 
                 $scope[$scope.settings[setting].widget + "Widget"] = $scope.settings[setting];
                 if ($scope.settings[setting].widget=="todo") 
@@ -67,18 +68,18 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
         };
         console.log($scope.digitalClockTest);
 
-        $('#grid').masonry({
-          itemSelector: '.move',
-          columnWidth: '.move',
+        $('.grid').masonry({
+          itemSelector: '.moveWidget',
+          columnWidth: '.col-xs-4',
           percentPosition: true
         });
 
-        $('#widgets').sortable({
+        $('.grid').sortable({
             helper: 'clone',
             forceHelperSize: true,
-            items: '.move',
+            items: '.moveWidget',
             helper: 'original',
-            cursor: 'move',
+            cursor: '.moveWidget',
             update: function(event, ui) {
                 var data = $(this).sortable('toArray');
                 for (var i = 0; i < data.length; i++) {
