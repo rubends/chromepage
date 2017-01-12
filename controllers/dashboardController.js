@@ -64,6 +64,10 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 {
                     getGroceries();
                 };
+                if ($scope.settings[setting].widget=="meeting") 
+                {
+                    getMeetings();
+                };
 
             };
         };
@@ -150,6 +154,20 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 {
                     $scope.groceries.push(data[grocery]);
                 };
+            });
+        }
+
+        function getMeetings(){
+            var sUrl = "http://chromepage.local/backend/web/api/meetings";
+            var oConfig = {
+                url: sUrl,
+                method: "GET",
+                params: {callback: "JSON_CALLBACK"},
+                headers: {Authorization: 'Bearer ' + $scope.token}
+            };
+            $http(oConfig).success(function(data){
+                $scope.date = new Date();
+                console.log(data);
             });
         }
 

@@ -2,10 +2,10 @@
 	<section ng-include="'error.html'"></section>
 	<div class="container-fluid" id="widgets">
 		<div class="grid">
-			<div ng-repeat="widgetSetting in settings | filter: {visible: '1'} | orderBy:'place'" class="moveWidget col-md-{{widgetSetting.size}}" id="{{widgetSetting.id}}">
+			<div ng-repeat="widgetSetting in settings | filter: {visible: '1'} | orderBy:'place' as widgetSettings" class="moveWidget col-md-{{widgetSetting.size}}" id="{{widgetSetting.id}}" ng-init="ifWidgets = ifWidgets + 1">
 		        <div ng-include="widgetSetting.widgetTemplate"></div>
 		    </div>
 		 </div>
-		 <h2 ng-hide="settings.length" class="text-center">There are no widgets set. Go to settings to add widgets.</h2>
+		 <h2 ng-hide="widgetSettings.length" class="text-center">There are no widgets set. Go to settings to add widgets.</h2>
     </div>
 </section>
