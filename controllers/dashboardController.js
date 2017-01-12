@@ -47,6 +47,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 $scope.settings[setting].widgetTemplate = "widgets/" + $scope.settings[setting].widget + ".html";
 
                 $scope[$scope.settings[setting].widget + "Widget"] = $scope.settings[setting];
+
                 if ($scope.settings[setting].widget=="todo") 
                 {
                     getTodos();
@@ -66,11 +67,10 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
 
             };
         };
-        console.log($scope.digitalClockTest);
+        console.log($scope.settings);
 
         $('.grid').masonry({
           itemSelector: '.moveWidget',
-          columnWidth: '.col-xs-4',
           percentPosition: true
         });
 
