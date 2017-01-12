@@ -2,7 +2,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
 		$scope.todos = [];
         $scope.groceries = [];
         $scope.weather = [];
-        $scope.widgetTemplates = [];
+        $scope.meetings = [];
 
         if (settings != "error" && user != "error") {
             $scope.settings = settings.data;
@@ -11,7 +11,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
 
             console.log($scope.user);
             $scope.dashboardStyle = {'background-color': $scope.user.background_color, 'color': $scope.user.font_color};
-            $scope.widgetHeader = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
+            $scope.widgetHeader = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color, 'border': 'none'};
             $scope.widgetBody = {'background-color': $scope.user.widget_color, 'color': $scope.user.font_color};
             $scope.buttonStyle = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
             $scope.buttonHoverStyle = {'background-color': $scope.user.font_color, 'color': $scope.user.header_color};
@@ -166,8 +166,15 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
-                $scope.date = new Date();
                 console.log(data);
+                $scope.date = new Date();
+                for (meeting in data) 
+                {
+                    var time = new Date(data[meeting].date.replace(' ', 'T')).getTime();
+                    if (time >= $scope.date) {
+                        $scope.meetings.push(data[meeting]);
+                    };
+                };
             });
         }
 
@@ -314,6 +321,43 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
             };
             $http(oConfig).success(function(data){
                 $scope.groceries = [];
+            });
+        }
+
+        $scope.postMeeting = function($title, $date, $time){
+            var sUrl = "http://chromepage.local/backend/web/api/meetings";
+            var oConfig = {
+                url: sUrl,
+                method: "POST",
+                data: {title:$title, date:$date, time:$time},
+                params: {callback: "JSON_CALLBACK"},
+                headers: {Authorization: 'Bearer ' + $scope.token}
+            };
+            $http(oConfig).success(function(data){
+                console.log(data);
+                $scope.meetings=[];
+                for (meeting in data) 
+                {
+                    $scope.meetings.push(data[meeting]);
+                };
+                $(".meetingForm").val('');
+            });
+        }
+
+        $scope.deleteMeeting = function($id){
+            var sUrl = "http://chromepage.local/backend/web/api/meetings/"+$id;
+            var oConfig = {
+                url: sUrl,
+                method: "DELETE",
+                params: {callback: "JSON_CALLBACK"},
+                headers: {Authorization: 'Bearer ' + $scope.token}
+            };
+            $http(oConfig).success(function(data){
+                $scope.meetings=[];
+                for (meeting in data) 
+                {
+                    $scope.meetings.push(data[meeting]);
+                };
             });
         }
 

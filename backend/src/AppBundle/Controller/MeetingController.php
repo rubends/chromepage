@@ -47,7 +47,8 @@ class MeetingController extends FOSRestController
     {
         $meeting = new Meeting();
         $meeting->setTitle($request->request->get('title'));
-        $meeting->setTime($request->request->get('time'));
+        $meeting->setTime(new \DateTime($request->request->get('time')));
+        $meeting->setDate(new \DateTime($request->request->get('date')));
 
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $meeting->setUserID($user->getId());

@@ -28,9 +28,16 @@ class Meeting
     protected $title;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      *
-     * @var datetime
+     * @var date
+     */
+    protected $date;
+
+    /**
+     * @ORM\Column(type="time")
+     *
+     * @var time
      */
     protected $time;
 
@@ -70,7 +77,7 @@ class Meeting
 
 
     /**
-     * @return datetime
+     * @return time
      *
      * @Validator\NotNull()
      */
@@ -80,11 +87,29 @@ class Meeting
     }
 
     /**
-     * @param datetime $time
+     * @param time $time
      */
     public function setTime($time)
     {
         $this->time = $time;
+    }
+
+    /**
+     * @return date
+     *
+     * @Validator\NotNull()
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * @param date $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
     }
 
     /**

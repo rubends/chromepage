@@ -28,6 +28,5 @@
     "bootstrap": "^3.3.7",
     "jquery": "^3.1.1",
     "masonry": "^4.1.1",
-    "packery": "^2.1.1"
   }
 }

@@ -1,5 +1,5 @@
 <div class="move">
-	<div class="panel panel-default" id="tasks">
+	<div class="panel panel-default" id="meetings">
 	          	<div class="panel-heading" ng-style="widgetHeader">
 	          		<h3>Calender</h3>
 	          		<div class="resize">
@@ -7,8 +7,26 @@
 	          		</div>
 	          	</div>
 	          	<div class="panel-body" id="meeting" ng-style="widgetBody">
-	          		<h3>Today {{date | date:'dd-MM-yyyy'}}</h3>
-					<p>Meetings</p>
+	          		<h2>Today {{date | date:'dd-MM-yyyy'}}</h2>
+					<h3>Meetings</h3>
+					<div ng-repeat="meeting in meetings | orderBy: 'date'">
+						<p class="date">{{meeting.date | date:'dd-MM-yyyy'}}</p>
+						<p class="meeting"><span>{{meeting.time | date:'HH:mm'}}</span> {{meeting.title}}</p>
+						<i class="fa fa-btn fa-times deleteMeeting" ng-click="deleteMeeting(meeting.id)"></i></li>
+					</div>
+	          	</div>
+	          	<div class="panel-footer" ng-style="widgetBody">
+	          		<p>Add</p>
+	          		<form ng-submit="postMeeting(meetingForm.title, meetingForm.date, meetingForm.time)">
+					  <div class="form-group">
+					      <input type="text" ng-model="meetingForm.title" name="title" class="form-control meetingForm" placeholder="What?">
+					      <input type="date" ng-model="meetingForm.date" name="date" class="form-control meetingForm" placeholder="Date?">
+					      <input type="time" ng-model="meetingForm.time" name="time" class="form-control meetingForm" placeholder="Time?">
+					   </div>
+					   <div class="form-group">
+					      <button class="btn btn-primary btn-block" type="submit" ng-style="widgetHeader" id="addMeeting">Add meeting</button>
+				    </div>
+					</form> 
 	          	</div>
 	        </div>
 </div>
