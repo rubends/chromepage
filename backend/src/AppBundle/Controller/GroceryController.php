@@ -69,7 +69,8 @@ class GroceryController extends FOSRestController
         $this->getDoctrine()->getManager()->persist($grocery);
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->getDoctrine()->getRepository('AppBundle:Grocery')->findByUserID($user->getId());
+        // return $this->getDoctrine()->getRepository('AppBundle:Grocery')->findByUserID($user->getId());
+        return $grocery;
     }
 
     /**
@@ -84,8 +85,9 @@ class GroceryController extends FOSRestController
         $this->getDoctrine()->getManager()->remove($grocery);
         $this->getDoctrine()->getManager()->flush();
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        return $this->getDoctrine()->getRepository('AppBundle:Grocery')->findByUserID($user->getId());
+        // $user = $this->get('security.token_storage')->getToken()->getUser();
+        // return $this->getDoctrine()->getRepository('AppBundle:Grocery')->findByUserID($user->getId());
+        return new JsonResponse(array('deleted' => $grocery));
     }
 
     /**

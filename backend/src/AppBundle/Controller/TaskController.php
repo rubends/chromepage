@@ -70,7 +70,7 @@ class TaskController extends FOSRestController
         $this->getDoctrine()->getManager()->persist($task);
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->getDoctrine()->getRepository('AppBundle:Task')->findByUserID($user->getId());
+        return $task;
     }
 
     /**
@@ -85,8 +85,9 @@ class TaskController extends FOSRestController
         $this->getDoctrine()->getManager()->remove($task);
         $this->getDoctrine()->getManager()->flush();
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        return $this->getDoctrine()->getRepository('AppBundle:Task')->findByUserID($user->getId());
+        // $user = $this->get('security.token_storage')->getToken()->getUser();
+        // return $this->getDoctrine()->getRepository('AppBundle:Task')->findByUserID($user->getId());
+        return new JsonResponse(array('deleted' => $task));
     }
 
     /**

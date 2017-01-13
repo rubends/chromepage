@@ -47,9 +47,12 @@ class MeetingController extends FOSRestController
     {
         $meeting = new Meeting();
         $meeting->setTitle($request->request->get('title'));
-        $meeting->setTime(new \DateTime($request->request->get('time')));
-        $meeting->setDate(new \DateTime($request->request->get('date')));
-
+        $time = new \DateTime($request->request->get('time'));
+        $date = new \DateTime($request->request->get('date'));
+        $time->add(new \DateInterval('PT1H'));
+        $date->add(new \DateInterval('PT1H'));
+        $meeting->setTime($time);
+        $meeting->setDate($date);
         $user = $this->get('security.token_storage')->getToken()->getUser();
         $meeting->setUserID($user->getId());
 
@@ -71,7 +74,8 @@ class MeetingController extends FOSRestController
         $this->getDoctrine()->getManager()->persist($meeting);
         $this->getDoctrine()->getManager()->flush();
 
-        return $this->getDoctrine()->getRepository('AppBundle:Meeting')->findByUserID($user->getId());
+        // return $this->getDoctrine()->getRepository('AppBundle:Meeting')->findByUserID($user->getId());
+        return $meeting;
     }
 
     /**
@@ -86,7 +90,8 @@ class MeetingController extends FOSRestController
         $this->getDoctrine()->getManager()->remove($meeting);
         $this->getDoctrine()->getManager()->flush();
 
-        $user = $this->get('security.token_storage')->getToken()->getUser();
-        return $this->getDoctrine()->getRepository('AppBundle:Meeting')->findByUserID($user->getId());
+        // $user = $this->get('security.token_storage')->getToken()->getUser();
+        // return $this->getDoctrine()->getRepository('AppBundle:Meeting')->findByUserID($user->getId());
+        return new JsonResponse(array('deleted' => $meeting));
     }
 }

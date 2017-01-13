@@ -166,7 +166,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
-                console.log(data);
+                // console.log(data);
                 $scope.date = new Date();
                 for (meeting in data) 
                 {
@@ -232,12 +232,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
-            	$scope.todos.push({todo: $todo, done: 0}); //faster visual
-                $scope.todos = [];
-            	for (todo in data) 
-                {
-               		$scope.todos.push(data[todo]);
-                };
+            	$scope.todos.push(data);
                 $("#addTodo").val('');
             });
         }
@@ -251,11 +246,9 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
-            	$scope.todos = [];
-            	for (todo in data) 
-                {
-               		$scope.todos.push(data[todo]);
-                };
+            	$scope.todos = $.grep($scope.todos, function(e){ 
+                     return e.id != $id; 
+                });
             });
         }
 
@@ -284,12 +277,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
-                $scope.groceries.push($grocery); //faster visual
-                $scope.groceries = [];
-                for (grocery in data) 
-                {
-                    $scope.groceries.push(data[grocery]);
-                };
+                $scope.groceries.push(data);
                 $("#addGrocery").val('');
             });
         }
@@ -303,11 +291,9 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
-                $scope.groceries = [];
-                for (grocery in data) 
-                {
-                    $scope.groceries.push(data[grocery]);
-                };
+                $scope.groceries = $.grep($scope.groceries, function(e){ 
+                     return e.id != $id; 
+                });
             });
         }
 
@@ -325,6 +311,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
         }
 
         $scope.postMeeting = function($title, $date, $time){
+            // console.log($title + $date + $time)
             var sUrl = "http://chromepage.local/backend/web/api/meetings";
             var oConfig = {
                 url: sUrl,
@@ -334,12 +321,11 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
-                console.log(data);
-                $scope.meetings=[];
-                for (meeting in data) 
-                {
-                    $scope.meetings.push(data[meeting]);
+                var time = new Date(data.date.replace(' ', 'T')).getTime();
+                if (time >= $scope.date) {
+                    $scope.meetings.push(data);
                 };
+
                 $(".meetingForm").val('');
             });
         }
@@ -353,11 +339,9 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 headers: {Authorization: 'Bearer ' + $scope.token}
             };
             $http(oConfig).success(function(data){
-                $scope.meetings=[];
-                for (meeting in data) 
-                {
-                    $scope.meetings.push(data[meeting]);
-                };
+                $scope.meetings = $.grep($scope.meetings, function(e){ 
+                     return e.id != $id; 
+                });
             });
         }
 
