@@ -61,8 +61,7 @@ var vendorProperties = {
   transform: transformProperty,
   transition: transitionProperty,
   transitionDuration: transitionProperty + 'Duration',
-  transitionProperty: transitionProperty + 'Property',
-  transitionDelay: transitionProperty + 'Delay'
+  transitionProperty: transitionProperty + 'Property'
 };
 
 // -------------------------- Item -------------------------- //
@@ -341,14 +340,10 @@ proto.enableTransition = function(/* style */) {
   //   prop = vendorProperties[ prop ] || prop;
   //   transitionValues.push( toDashedAll( prop ) );
   // }
-  // munge number to millisecond, to match stagger
-  var duration = this.layout.options.transitionDuration;
-  duration = typeof duration == 'number' ? duration + 'ms' : duration;
   // enable transition styles
   this.css({
     transitionProperty: transitionProps,
-    transitionDuration: duration,
-    transitionDelay: this.staggerDelay || 0
+    transitionDuration: this.layout.options.transitionDuration
   });
   // listen for transition end event
   this.element.addEventListener( transitionEndEvent, this, false );
@@ -422,20 +417,12 @@ proto._removeStyles = function( style ) {
 
 var cleanTransitionStyle = {
   transitionProperty: '',
-  transitionDuration: '',
-  transitionDelay: ''
+  transitionDuration: ''
 };
 
 proto.removeTransitionStyles = function() {
   // remove transition
   this.css( cleanTransitionStyle );
-};
-
-// ----- stagger ----- //
-
-proto.stagger = function( delay ) {
-  delay = isNaN( delay ) ? 0 : delay;
-  this.staggerDelay = delay + 'ms';
 };
 
 // ----- show/hide/remove ----- //

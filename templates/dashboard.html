@@ -2,7 +2,7 @@
 	<section ng-include="'error.html'"></section>
 	<div class="container-fluid" id="widgets">
 		<div class="grid">
-			<div ng-repeat="widgetSetting in settings | filter: {visible: '1'} | orderBy:'place' as widgetSettings" class="moveWidget col-md-{{widgetSetting.size}}" id="{{widgetSetting.id}}" ng-init="ifWidgets = ifWidgets + 1">
+			<div ng-repeat="widgetSetting in settings | filter: {visible: '1'} | orderBy:'place' as widgetSettings" class="moveWidget col-md-{{widgetSetting.size}}" id="{{widgetSetting.id}}" packery>
 		        <div ng-include="widgetSetting.widgetTemplate"></div>
 		    </div>
 		 </div>

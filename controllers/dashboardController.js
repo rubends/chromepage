@@ -1,4 +1,4 @@
-app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location', 'settings', 'user', function($scope, $http, $cookies, $location, settings, user){
+app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookies', '$location', 'settings', 'user', function($rootScope, $scope, $http, $cookies, $location, settings, user){
 		$scope.todos = [];
         $scope.groceries = [];
         $scope.weather = [];
@@ -21,29 +21,10 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
             $scope.error.reason = "You have to be loggedin";
             $scope.error.exist = true;
         }
-        // if (settings == "error") {
-        //     $location.path('/login');
-        //     $scope.error.reason = "You have to be loggedin";
-        //     $scope.error.exist = true;
-        // }
-        // else if($scope.user.loggedIn){
-        //     $scope.settings = settings.data;
-        //     // $scope.user = user.data;
-        //     // $scope.user.loggedIn = true;
-        //     console.log($scope.user);
-        //     $scope.dashboardStyle = {'background-color': $scope.user.background_color, 'color': $scope.user.font_color};
-        //     $scope.widgetHeader = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
-        //     $scope.widgetBody = {'background-color': $scope.user.widget_color, 'color': $scope.user.font_color};
-        //     $scope.buttonStyle = {'background-color': $scope.user.header_color, 'color': $scope.user.font_color};
-        //     $scope.buttonHoverStyle = {'background-color': $scope.user.font_color, 'color': $scope.user.header_color};
-
-        // }
-        console.log("dashboard user:" + $scope.user.loggedIn);
         
         for(setting in $scope.settings){
             if ($scope.settings[setting].visible==1) 
             {
-                // $scope.widgetTemplates[$scope.settings[setting].place] = "widgets/" + $scope.settings[setting].widget + ".html";
                 $scope.settings[setting].widgetTemplate = "widgets/" + $scope.settings[setting].widget + ".html";
 
                 $scope[$scope.settings[setting].widget + "Widget"] = $scope.settings[setting];
@@ -71,37 +52,31 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
 
             };
         };
-        console.log($scope.settings);
 
-        $('.grid').masonry({
-          itemSelector: '.moveWidget',
-          percentPosition: true
-        });
-
-        $('.grid').sortable({
-            helper: 'clone',
-            forceHelperSize: true,
-            items: '.moveWidget',
-            helper: 'original',
-            cursor: '.moveWidget',
-            update: function(event, ui) {
-                var data = $(this).sortable('toArray');
-                for (var i = 0; i < data.length; i++) {
-                    var sUrl = "http://chromepage.local/backend/web/api/settings/"+data[i]+"/places/"+i;
-                    var oConfig = {
-                        url: sUrl,
-                        method: "PATCH",
-                        params: {callback: "JSON_CALLBACK"},
-                        headers: {Authorization: 'Bearer ' + $scope.token}
-                    };
-                    $http(oConfig).success(function(data){
-                        // console.log(data);
-                    }).error(function(data){
-                         console.log("error");
-                    });
-                };
-            },
-        });
+        // $('.grid').sortable({
+        //     helper: 'clone',
+        //     forceHelperSize: true,
+        //     items: '.moveWidget',
+        //     helper: 'original',
+        //     cursor: '.moveWidget',
+        //     update: function(event, ui) {
+        //         var data = $(this).sortable('toArray');
+        //         for (var i = 0; i < data.length; i++) {
+        //             var sUrl = "http://chromepage.local/backend/web/api/settings/"+data[i]+"/places/"+i;
+        //             var oConfig = {
+        //                 url: sUrl,
+        //                 method: "PATCH",
+        //                 params: {callback: "JSON_CALLBACK"},
+        //                 headers: {Authorization: 'Bearer ' + $rootScope.token}
+        //             };
+        //             $http(oConfig).success(function(data){
+        //                 // console.log(data);
+        //             }).error(function(data){
+        //                  console.log("error");
+        //             });
+        //         };
+        //     },
+        // });
 
         $scope.changeSize = function($id, $size){
             if ($size < 4) {
@@ -111,12 +86,13 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 $size = 1;
             }
             $scope.newWidgetSize = $size;
+            $rootScope.packery.layout();
             var sUrl = "http://chromepage.local/backend/web/api/settings/"+$id+"/sizes/"+$size;
                     var oConfig = {
                         url: sUrl,
                         method: "PATCH",
                         params: {callback: "JSON_CALLBACK"},
-                        headers: {Authorization: 'Bearer ' + $scope.token}
+                        headers: {Authorization: 'Bearer ' + $rootScope.token}
                     };
                     $http(oConfig).success(function(data){
                         console.log(data);
@@ -131,7 +107,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 url: sUrl,
                 method: "GET",
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
                 for (todo in data) 
@@ -147,7 +123,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 url: sUrl,
                 method: "GET",
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
                 for (grocery in data) 
@@ -163,15 +139,25 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 url: sUrl,
                 method: "GET",
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
                 // console.log(data);
                 $scope.date = new Date();
+                $scope.yesterday = new Date();
+                $scope.yesterday.setDate($scope.yesterday.getDate() - 1);
+                $scope.dates = [];
                 for (meeting in data) 
                 {
+                    if(jQuery.inArray(data[meeting].date, $scope.dates) !== -1){
+                        data[meeting].isUsed = true;
+                    }
+                    else{
+                        data[meeting].isUsed = false;
+                        $scope.dates.push(data[meeting].date);
+                    }
                     var time = new Date(data[meeting].date.replace(' ', 'T')).getTime();
-                    if (time >= $scope.date) {
+                    if (time > $scope.yesterday) {
                         $scope.meetings.push(data[meeting]);
                     };
                 };
@@ -211,7 +197,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 url: sUrl,
                 method: "PATCH",
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
             	$scope.todos = [];
@@ -229,7 +215,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 method: "POST",
                 data: {todo:$todo},
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
             	$scope.todos.push(data);
@@ -243,7 +229,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 url: sUrl,
                 method: "DELETE",
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
             	$scope.todos = $.grep($scope.todos, function(e){ 
@@ -258,7 +244,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 url: sUrl,
                 method: "PATCH",
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
                 getWeather($weather);
@@ -274,7 +260,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 method: "POST",
                 data: {item:$grocery},
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
                 $scope.groceries.push(data);
@@ -288,7 +274,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 url: sUrl,
                 method: "DELETE",
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
                 $scope.groceries = $.grep($scope.groceries, function(e){ 
@@ -303,7 +289,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 url: sUrl,
                 method: "DELETE",
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
                 $scope.groceries = [];
@@ -311,21 +297,20 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
         }
 
         $scope.postMeeting = function($title, $date, $time){
-            // console.log($title + $date + $time)
             var sUrl = "http://chromepage.local/backend/web/api/meetings";
             var oConfig = {
                 url: sUrl,
                 method: "POST",
                 data: {title:$title, date:$date, time:$time},
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
                 var time = new Date(data.date.replace(' ', 'T')).getTime();
-                if (time >= $scope.date) {
+                if (time >= $scope.yesterday) {
+                    data.time = time;
                     $scope.meetings.push(data);
                 };
-
                 $(".meetingForm").val('');
             });
         }
@@ -336,7 +321,7 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 url: sUrl,
                 method: "DELETE",
                 params: {callback: "JSON_CALLBACK"},
-                headers: {Authorization: 'Bearer ' + $scope.token}
+                headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
                 $scope.meetings = $.grep($scope.meetings, function(e){ 
@@ -344,5 +329,4 @@ app.controller("dashboardController", ['$scope', '$http', '$cookies', '$location
                 });
             });
         }
-
 	}]);
