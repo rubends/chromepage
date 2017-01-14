@@ -75,12 +75,10 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
         return {
           restrict: 'A',
           link: function(scope, element, attrs) {
-            // console.log("link called on", element[0]);
             if ($rootScope.packery === undefined || $rootScope.packery === null) {
               scope.element = element;
               $rootScope.packery = new Packery(element[0].parentElement, {
                 isResizeBound: true,
-                // rowHeight: 100,
                 columnWidth: 1,
                 itemSelector: '.moveWidget'
               });
@@ -97,9 +95,6 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
 
               var orderItems = function() {
                 var itemElems = $rootScope.packery.getItemElements();
-                // $(itemElems).each(function(i, itemElem) {
-                //   $(itemElem).text(i + 1);
-                // });
               };
 
               $rootScope.packery.on('layoutComplete', orderItems);

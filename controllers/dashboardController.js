@@ -53,31 +53,6 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
             };
         };
 
-        // $('.grid').sortable({
-        //     helper: 'clone',
-        //     forceHelperSize: true,
-        //     items: '.moveWidget',
-        //     helper: 'original',
-        //     cursor: '.moveWidget',
-        //     update: function(event, ui) {
-        //         var data = $(this).sortable('toArray');
-        //         for (var i = 0; i < data.length; i++) {
-        //             var sUrl = "http://chromepage.local/backend/web/api/settings/"+data[i]+"/places/"+i;
-        //             var oConfig = {
-        //                 url: sUrl,
-        //                 method: "PATCH",
-        //                 params: {callback: "JSON_CALLBACK"},
-        //                 headers: {Authorization: 'Bearer ' + $rootScope.token}
-        //             };
-        //             $http(oConfig).success(function(data){
-        //                 // console.log(data);
-        //             }).error(function(data){
-        //                  console.log("error");
-        //             });
-        //         };
-        //     },
-        // });
-
         $scope.changeSize = function($id, $size){
             if ($size < 4) {
                 $size = $size*2;
@@ -142,7 +117,6 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
                 headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
-                // console.log(data);
                 $scope.date = new Date();
                 $scope.yesterday = new Date();
                 $scope.yesterday.setDate($scope.yesterday.getDate() - 1);
