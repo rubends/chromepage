@@ -2,7 +2,7 @@ app.factory('settingsService', ['$http', '$cookies', function($http, $cookies) {
 	return {
 		get: function(){
             if ($cookies.get('token')) {
-    			var sUrl = "http://chromepage.local/backend/web/api/settings";
+    			var sUrl = "../backend/web/api/settings";
                 var oConfig = {
                     url: sUrl,
                     method: "GET",

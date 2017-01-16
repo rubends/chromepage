@@ -117,7 +117,7 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
                 console.log("save place");
                 var itemElems = $rootScope.packery.getItemElements();
                 for (var i = 0; i < itemElems.length; i++) {
-                    var sUrl = "http://chromepage.local/backend/web/api/settings/"+itemElems[i].id+"/places/"+i;
+                    var sUrl = "../backend/web/api/settings/"+itemElems[i].id+"/places/"+i;
                     var oConfig = {
                         url: sUrl,
                         method: "PATCH",

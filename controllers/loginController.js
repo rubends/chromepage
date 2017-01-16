@@ -1,7 +1,7 @@
 app.controller("loginController", ['$scope', '$http', '$cookies', '$location', function($scope, $http, $cookies, $location){
 
         $scope.login = function(){
-            var sUrl = "http://chromepage.local/backend/web/api/users/logins";
+            var sUrl = "../backend/web/api/users/logins";
             var oConfig = {
                 url: sUrl,
                 method: "POST",

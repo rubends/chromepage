@@ -7,7 +7,7 @@ use Symfony\Component\Validator\Constraints as Validator;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="Grocery")
+ * @ORM\Table(name="grocery")
  */
 class Grocery
 {

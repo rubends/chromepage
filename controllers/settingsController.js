@@ -10,7 +10,7 @@ app.controller("settingsController", ['$scope', '$http', '$cookies', '$location'
         }
 
         $scope.toggleShow = function($id){
-            var sUrl = "http://chromepage.local/backend/web/api/settings/"+$id+"/toggle";
+            var sUrl = "../backend/web/api/settings/"+$id+"/toggle";
             var oConfig = {
                 url: sUrl,
                 method: "PATCH",
@@ -27,7 +27,7 @@ app.controller("settingsController", ['$scope', '$http', '$cookies', '$location'
         }
 
         $scope.changeColor = function($option, $color){
-            var sUrl = "http://chromepage.local/backend/web/api/users/"+ $option + "/colors/" +encodeURIComponent($color);
+            var sUrl = "../backend/web/api/users/"+ $option + "/colors/" +encodeURIComponent($color);
             var oConfig = {
                 url: sUrl,
                 method: "PATCH",

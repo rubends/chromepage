@@ -2,7 +2,7 @@ app.factory('getUserService', ['$http', '$cookies', function($http, $cookies) {
 	return {
 		getUser: function(){
             if ($cookies.get('token')) {
-                var sUrl = "http://chromepage.local/backend/web/api/user";
+                var sUrl = "../backend/web/api/user";
                 var oConfig = {
                     url: sUrl,
                     method: "GET",

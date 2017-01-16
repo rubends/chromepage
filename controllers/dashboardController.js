@@ -62,7 +62,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
             }
             $scope.newWidgetSize = $size;
             $rootScope.packery.layout();
-            var sUrl = "http://chromepage.local/backend/web/api/settings/"+$id+"/sizes/"+$size;
+            var sUrl = "../backend/web/api/settings/"+$id+"/sizes/"+$size;
                     var oConfig = {
                         url: sUrl,
                         method: "PATCH",
@@ -77,7 +77,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
         
         function getTodos(){
-            var sUrl = "http://chromepage.local/backend/web/api/tasks";
+            var sUrl = "../backend/web/api/tasks";
             var oConfig = {
                 url: sUrl,
                 method: "GET",
@@ -93,7 +93,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
 
         function getGroceries(){
-            var sUrl = "http://chromepage.local/backend/web/api/grocerys";
+            var sUrl = "../backend/web/api/grocerys";
             var oConfig = {
                 url: sUrl,
                 method: "GET",
@@ -109,7 +109,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
 
         function getMeetings(){
-            var sUrl = "http://chromepage.local/backend/web/api/meetings";
+            var sUrl = "../backend/web/api/meetings";
             var oConfig = {
                 url: sUrl,
                 method: "GET",
@@ -152,7 +152,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
 
         function getJoke(){
-            var sUrl = "http://chromepage.local/backend/web/api/jokes.json";
+            var sUrl = "../backend/web/api/jokes.json";
             var oConfig = {
                 url: sUrl,
                 method: "GET"
@@ -166,7 +166,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
         
         $scope.toggleDone = function($id){
-        	var sUrl = "http://chromepage.local/backend/web/api/tasks/"+$id+"/toggle";
+        	var sUrl = "../backend/web/api/tasks/"+$id+"/toggle";
             var oConfig = {
                 url: sUrl,
                 method: "PATCH",
@@ -183,7 +183,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
 
         $scope.postTodo = function($todo){
-        	var sUrl = "http://chromepage.local/backend/web/api/tasks";
+        	var sUrl = "../backend/web/api/tasks";
             var oConfig = {
                 url: sUrl,
                 method: "POST",
@@ -198,7 +198,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
 
         $scope.deleteTodo = function($id){
-        	var sUrl = "http://chromepage.local/backend/web/api/tasks/"+$id;
+        	var sUrl = "../backend/web/api/tasks/"+$id;
             var oConfig = {
                 url: sUrl,
                 method: "DELETE",
@@ -213,7 +213,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
 
         $scope.changeWeather = function($id, $weather){
-            var sUrl = "http://chromepage.local/backend/web/api/settings/"+$id+"/accounts/"+$weather;
+            var sUrl = "../backend/web/api/settings/"+$id+"/accounts/"+$weather;
             var oConfig = {
                 url: sUrl,
                 method: "PATCH",
@@ -228,7 +228,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
 
         $scope.postGrocery = function($grocery){
-            var sUrl = "http://chromepage.local/backend/web/api/grocerys";
+            var sUrl = "../backend/web/api/grocerys";
             var oConfig = {
                 url: sUrl,
                 method: "POST",
@@ -243,7 +243,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
 
         $scope.deleteGrocery = function($id){
-            var sUrl = "http://chromepage.local/backend/web/api/groceries/"+$id;
+            var sUrl = "../backend/web/api/groceries/"+$id;
             var oConfig = {
                 url: sUrl,
                 method: "DELETE",
@@ -258,7 +258,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
 
         $scope.deleteAllGroceries = function(){
-            var sUrl = "http://chromepage.local/backend/web/api/all/grocery";
+            var sUrl = "../backend/web/api/all/grocery";
             var oConfig = {
                 url: sUrl,
                 method: "DELETE",
@@ -271,7 +271,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
 
         $scope.postMeeting = function($title, $date, $time){
-            var sUrl = "http://chromepage.local/backend/web/api/meetings";
+            var sUrl = "../backend/web/api/meetings";
             var oConfig = {
                 url: sUrl,
                 method: "POST",
@@ -290,7 +290,7 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
         }
 
         $scope.deleteMeeting = function($id){
-            var sUrl = "http://chromepage.local/backend/web/api/meetings/"+$id;
+            var sUrl = "../backend/web/api/meetings/"+$id;
             var oConfig = {
                 url: sUrl,
                 method: "DELETE",

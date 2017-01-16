@@ -1,7 +1,7 @@
 app.controller("registerController", ['$scope', '$http', '$cookies', '$location', function($scope, $http, $cookies, $location){
 
         $scope.register = function(){
-            var sUrl = "http://chromepage.local/backend/web/api/users/registers";
+            var sUrl = "../backend/web/api/users/registers";
             var oConfig = {
                 url: sUrl,
                 method: "POST",
@@ -28,7 +28,7 @@ app.controller("registerController", ['$scope', '$http', '$cookies', '$location'
         }
 
         $scope.setUserSettings = function(){
-            var sUrl = "http://chromepage.local/backend/web/api/settings/users";
+            var sUrl = "../backend/web/api/settings/users";
             var oConfig = {
                 url: sUrl,
                 method: "POST",
