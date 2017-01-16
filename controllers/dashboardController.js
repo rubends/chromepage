@@ -53,6 +53,10 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
             };
         };
 
+        $('.grid').imagesLoaded( function() {
+          $rootScope.packery.layout();
+        });
+
         $scope.changeSize = function($id, $size){
             if ($size < 4) {
                 $size = $size*2;
@@ -280,9 +284,8 @@ app.controller("dashboardController", ['$rootScope', '$scope', '$http', '$cookie
                 headers: {Authorization: 'Bearer ' + $rootScope.token}
             };
             $http(oConfig).success(function(data){
-                var time = new Date(data.date.replace(' ', 'T')).getTime();
-                if (time >= $scope.yesterday) {
-                    data.time = time;
+                var date = new Date(data.date.replace(' ', 'T')).getTime();
+                if (date >= $scope.yesterday) {
                     $scope.meetings.push(data);
                 };
                 $(".meetingForm").val('');

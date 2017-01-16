@@ -132,7 +132,6 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
                 };
             }
 
-
             $timeout(function() {
               $rootScope.packery.reloadItems();
               $rootScope.packery.layout();
@@ -142,6 +141,15 @@ var app = angular.module('chromePage', ['ngRoute', 'ngCookies']);
 
       }
     ]);
+
+    
+    app.directive('reloadPackery', ['$rootScope', function($rootScope) {
+      return function(scope) {
+        if (scope.$last){
+          $rootScope.packery.layout();
+        }
+      };
+    }])
     
 })();
 

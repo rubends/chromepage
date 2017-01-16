@@ -9,7 +9,7 @@
 	          	<div class="panel-body" id="todo" ng-style="widgetBody">
 	          		<p ng-hide="todos.length">You have no todo's</p>
 					<ul>
-						<li ng-repeat="task in todos | filter: {done: '0'} as notDone">
+						<li ng-repeat="task in todos | filter: {done: '0'} as notDone" reload-packery>
 							<div ng-click="toggleDone(task.id)">
 								<i class="fa fa-square-o checkSquare" aria-hidden="true"></i>
 								<i class="fa fa-check-square-o hoverSquare" aria-hidden="true"></i>
@@ -30,7 +30,7 @@
 	          	<div class="panel-footer" id="done" ng-style="widgetBody">
 	          		<p>done</p>
 	          		<ul>
-						<li ng-repeat="task in todos | filter: {done: '1'} as dones">
+						<li ng-repeat="task in todos | filter: {done: '1'} as dones" reload-packery>
 							<div ng-click="toggleDone(task.id)">
 							<i class="fa fa-check-square-o checkSquare" aria-hidden="true"></i>
 							<i class="fa fa-square-o hoverSquare" aria-hidden="true"></i>

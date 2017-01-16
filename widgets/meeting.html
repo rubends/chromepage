@@ -9,7 +9,7 @@
 	          	<div class="panel-body" id="meeting" ng-style="widgetBody">
 	          		<h2>Today {{date | date:'dd-MM-yyyy'}}</h2>
 					<h3>Meetings</h3>
-					<div ng-repeat="meeting in meetings | orderBy: ['date', 'time']">
+					<div ng-repeat="meeting in meetings | orderBy: ['date', 'time']" reload-packery>
 						<p class="date" ng-hide="meeting.isUsed">{{meeting.date | date:'dd-MM-yyyy'}}</p>
 						<p class="meeting"><span>{{meeting.time | date:'HH:mm'}}</span> {{meeting.title}}</p>
 						<i class="fa fa-btn fa-times deleteMeeting" ng-click="deleteMeeting(meeting.id)"></i></li>
